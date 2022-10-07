@@ -13,7 +13,7 @@ public:
     int index;
     double x;
     double y;
-    double getDistance(Node other);
+    double getDistance(const Node& other);
     Node(const Node& other);
 private:
 

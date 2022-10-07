@@ -14,6 +14,7 @@ class Specimen {
 public:
     std::array<int8_t, N> nodeGenome;
     std::bitset<I> itemGenome;
+    Specimen(){for (int i=0;i<N;i++) this->nodeGenome.at(i)=i; this->itemGenome.set();}
     Specimen(std::array<int8_t, N> nodeGenome, std::bitset<I> itemGenome){this->nodeGenome = nodeGenome; this->itemGenome=itemGenome;}
 };
 

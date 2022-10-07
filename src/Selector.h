@@ -20,18 +20,18 @@ class RouletteSelector;
 template<std::size_t N, std::size_t I, std::size_t P>
 class Selector {
     virtual std::array<Specimen<N,I>, P> RunSelection(std::array<Specimen<N,I>, P>& population) = 0;
-    Selector<N,I,P> GenerateSelector(SelectorEnum selectorEnum){
-        switch (selectorEnum) {
-            case ROULETTE: {
-                RouletteSelector<N,I,P> selector{};
-                return selector;
-            }
-            case TOURNAMENT: {
-                TournamentSelector<N,I,P> selector{};
-                return selector;
-            }
-        }
-    }
+//    Selector<N,I,P> GenerateSelector(SelectorEnum selectorEnum){
+//        switch (selectorEnum) {
+//            case ROULETTE: {
+//                RouletteSelector<N,I,P> selector{};
+//                return selector;
+//            }
+//            case TOURNAMENT: {
+//                TournamentSelector<N,I,P> selector{};
+//                return selector;
+//            }
+//        }
+//    }
 };
 
 template<std::size_t N, std::size_t I, std::size_t P>

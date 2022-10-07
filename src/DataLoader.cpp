@@ -14,7 +14,7 @@ bool DataLoader::loadData(const std::string& filePath) {
         getline(dataFile, line);
         this->data.problemName = this->splitString(line, '\t')[1];
         getline(dataFile, line);
-        this->data.knapsackDataType = this->splitString(line, '\t')[1];
+//        this->data.knapsackDataType = this->splitString(line, '\t')[1];
         getline(dataFile, line);
         this->data.nodeCount = std::stoi(this->splitString(line, '\t')[1]);
         getline(dataFile, line);
@@ -31,7 +31,7 @@ bool DataLoader::loadData(const std::string& filePath) {
         this->data.edgeWeightType = this->splitString(line, '\t')[1];
         getline(dataFile, line);
 //        read nodes
-        while(getline(dataFile, line) && line != "ITEMS SECTION\t(INDEX, PROFIT, WEIGHT, ASSIGNED NODE NUMBER): "){
+        while(getline(dataFile, line) && (line.find("ITEMS SECTION") == std::string::npos)){
             Node node{};
             std::vector<std::string> splitLine = this->splitString(line, '\t');
             node.index=std::stoi(splitLine[0])-1;
@@ -46,7 +46,7 @@ bool DataLoader::loadData(const std::string& filePath) {
             item.index=std::stoi(splitLine[0])-1;
             item.profit=std::stod(splitLine[1]);
             item.weight=std::stod(splitLine[2]);
-            item.node=std::stoi(splitLine[3]);
+            item.node=std::stoi(splitLine[3])-1;
             this->data.items.push_back(item);
             if (this->data.itemsAtNodeMap.find(item.node) != this->data.itemsAtNodeMap.end()) {
                 this->data.itemsAtNodeMap.at(item.node).push_back(item);
@@ -58,8 +58,10 @@ bool DataLoader::loadData(const std::string& filePath) {
 
 //      initialize adjecency map
         for (int i = 0; i<this->data.nodes.size(); i++){
+            this->data.nodeAdjacencyMatrix.emplace_back();
             for (int j = 0; j<this->data.nodes.size(); j++) {
-                this->data.nodeAdjacencyMatrix[i][j] = this->data.nodes[i].getDistance(this->data.nodes[j]);
+                double dist = this->data.nodes.at(i).getDistance(this->data.nodes.at(j));
+                this->data.nodeAdjacencyMatrix.at(i).push_back(dist);
             }
         }
 
