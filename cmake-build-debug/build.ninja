@@ -55,29 +55,59 @@ build CMakeFiles/Metaheuristics.dir/main.cpp.o: CXX_COMPILER__Metaheuristics_Deb
   OBJECT_DIR = CMakeFiles/Metaheuristics.dir
   OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir
 
-build CMakeFiles/Metaheuristics.dir/dataLoader/DataLoader.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/dataLoader/DataLoader.cpp || cmake_object_order_depends_target_Metaheuristics
-  DEP_FILE = CMakeFiles/Metaheuristics.dir/dataLoader/DataLoader.cpp.o.d
+build CMakeFiles/Metaheuristics.dir/src/DataLoader.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/DataLoader.cpp || cmake_object_order_depends_target_Metaheuristics
+  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/DataLoader.cpp.o.d
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/Metaheuristics.dir
-  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/dataLoader
+  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
 
-build CMakeFiles/Metaheuristics.dir/dataLoader/DataStructure.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/dataLoader/DataStructure.cpp || cmake_object_order_depends_target_Metaheuristics
-  DEP_FILE = CMakeFiles/Metaheuristics.dir/dataLoader/DataStructure.cpp.o.d
+build CMakeFiles/Metaheuristics.dir/src/DataStructure.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/DataStructure.cpp || cmake_object_order_depends_target_Metaheuristics
+  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/DataStructure.cpp.o.d
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/Metaheuristics.dir
-  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/dataLoader
+  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
 
-build CMakeFiles/Metaheuristics.dir/dataLoader/Node.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/dataLoader/Node.cpp || cmake_object_order_depends_target_Metaheuristics
-  DEP_FILE = CMakeFiles/Metaheuristics.dir/dataLoader/Node.cpp.o.d
+build CMakeFiles/Metaheuristics.dir/src/Node.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Node.cpp || cmake_object_order_depends_target_Metaheuristics
+  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Node.cpp.o.d
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/Metaheuristics.dir
-  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/dataLoader
+  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
 
-build CMakeFiles/Metaheuristics.dir/dataLoader/Item.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/dataLoader/Item.cpp || cmake_object_order_depends_target_Metaheuristics
-  DEP_FILE = CMakeFiles/Metaheuristics.dir/dataLoader/Item.cpp.o.d
+build CMakeFiles/Metaheuristics.dir/src/Item.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Item.cpp || cmake_object_order_depends_target_Metaheuristics
+  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Item.cpp.o.d
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/Metaheuristics.dir
-  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/dataLoader
+  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
+
+build CMakeFiles/Metaheuristics.dir/src/Specimen.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Specimen.cpp || cmake_object_order_depends_target_Metaheuristics
+  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Specimen.cpp.o.d
+  FLAGS = -g
+  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
+  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
+
+build CMakeFiles/Metaheuristics.dir/src/Mutator.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Mutator.cpp || cmake_object_order_depends_target_Metaheuristics
+  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Mutator.cpp.o.d
+  FLAGS = -g
+  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
+  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
+
+build CMakeFiles/Metaheuristics.dir/src/Selector.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Selector.cpp || cmake_object_order_depends_target_Metaheuristics
+  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Selector.cpp.o.d
+  FLAGS = -g
+  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
+  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
+
+build CMakeFiles/Metaheuristics.dir/src/Crossoverer.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Crossoverer.cpp || cmake_object_order_depends_target_Metaheuristics
+  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Crossoverer.cpp.o.d
+  FLAGS = -g
+  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
+  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
+
+build CMakeFiles/Metaheuristics.dir/src/Evaluator.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Evaluator.cpp || cmake_object_order_depends_target_Metaheuristics
+  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Evaluator.cpp.o.d
+  FLAGS = -g
+  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
+  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
 
 
 # =============================================================================
@@ -87,7 +117,7 @@ build CMakeFiles/Metaheuristics.dir/dataLoader/Item.cpp.o: CXX_COMPILER__Metaheu
 #############################################
 # Link the executable Metaheuristics
 
-build Metaheuristics: CXX_EXECUTABLE_LINKER__Metaheuristics_Debug CMakeFiles/Metaheuristics.dir/main.cpp.o CMakeFiles/Metaheuristics.dir/dataLoader/DataLoader.cpp.o CMakeFiles/Metaheuristics.dir/dataLoader/DataStructure.cpp.o CMakeFiles/Metaheuristics.dir/dataLoader/Node.cpp.o CMakeFiles/Metaheuristics.dir/dataLoader/Item.cpp.o
+build Metaheuristics: CXX_EXECUTABLE_LINKER__Metaheuristics_Debug CMakeFiles/Metaheuristics.dir/main.cpp.o CMakeFiles/Metaheuristics.dir/src/DataLoader.cpp.o CMakeFiles/Metaheuristics.dir/src/DataStructure.cpp.o CMakeFiles/Metaheuristics.dir/src/Node.cpp.o CMakeFiles/Metaheuristics.dir/src/Item.cpp.o CMakeFiles/Metaheuristics.dir/src/Specimen.cpp.o CMakeFiles/Metaheuristics.dir/src/Mutator.cpp.o CMakeFiles/Metaheuristics.dir/src/Selector.cpp.o CMakeFiles/Metaheuristics.dir/src/Crossoverer.cpp.o CMakeFiles/Metaheuristics.dir/src/Evaluator.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/Metaheuristics.dir
   POST_BUILD = :

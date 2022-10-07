@@ -7,6 +7,7 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include "Node.h"
 #include "Item.h"
 
@@ -23,6 +24,11 @@ public:
     std::string edgeWeightType;
     std::vector<Node> nodes;
     std::vector<Item> items;
+
+    double velocityConst;
+    std::vector<std::vector<double>> nodeAdjacencyMatrix;
+    std::map<int, std::vector<Item>> itemsAtNodeMap;
+private:
 };
 
 

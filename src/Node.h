@@ -8,10 +8,13 @@
 
 class Node {
 public:
+    Node(){index=0;x=0;y=0;}
+
     int index;
-    int x;
-    int y;
+    double x;
+    double y;
     double getDistance(Node other);
+    Node(const Node& other);
 private:
 
 };
