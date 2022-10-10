@@ -3,7 +3,7 @@
 //
 
 #include "Mutator.h"
-template<std::size_t N, std::size_t I>
-void DefaultMutator<N, I>::MutateSpecimen(Specimen<N, I> &specimen) {
+
+void DefaultMutator::MutateSpecimen(Specimen &specimen) {
 
 }

@@ -10,15 +10,13 @@
 enum MutatorEnum{
     DEFAULT
 };
-template<std::size_t N, std::size_t I>
 class DefaultMutator;
 
-template<std::size_t N, std::size_t I>
 class Mutator {
 public:
     double mutationProbability;
 
-    virtual void MutateSpecimen(Specimen<N,I>& specimen) = 0;
+    virtual void MutateSpecimen(Specimen& specimen) = 0;
 //    Mutator<N,I> GenerateMutator(MutatorEnum mutatorEnum){
 //        switch (mutatorEnum) {
 //            case DEFAULT: {
@@ -28,9 +26,8 @@ public:
 //        }
 //    }
 };
-template<std::size_t N, std::size_t I>
-class DefaultMutator : public Mutator<N,I>{
-    void MutateSpecimen(Specimen<N, I> &specimen) override;
+class DefaultMutator : public Mutator{
+    void MutateSpecimen(Specimen &specimen) override;
 };
 
 

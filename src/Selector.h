@@ -15,14 +15,11 @@ enum SelectorEnum{
     ROULETTE,
     TOURNAMENT
 };
-template<std::size_t N, std::size_t I, std::size_t P>
 class TournamentSelector;
-template<std::size_t N, std::size_t I, std::size_t P>
 class RouletteSelector;
 
-template<std::size_t N, std::size_t I, std::size_t P>
 class Selector {
-    virtual std::array<Specimen<N,I>, P> RunSelection(std::array<Specimen<N,I>, P>& population, Evaluator<N,I>& evaluator) = 0;
+    virtual std::vector<Specimen> RunSelection(std::vector<Specimen>& population, Evaluator& evaluator) = 0;
 //    Selector<N,I,P> GenerateSelector(SelectorEnum selectorEnum){
 //        switch (selectorEnum) {
 //            case ROULETTE: {
@@ -37,41 +34,15 @@ class Selector {
 //    }
 };
 
-template<std::size_t N, std::size_t I, std::size_t P>
-class RouletteSelector: public Selector<N,I,P> {
+class RouletteSelector: public Selector {
 public:
-    std::array<Specimen<N,I>, P> RunSelection(std::array<Specimen<N,I>, P>& population, Evaluator<N,I>& evaluator);
+    std::vector<Specimen> RunSelection(std::vector<Specimen>& population, Evaluator& evaluator) override;
 private:
-    Specimen<N,I> SingleRoulette();
 };
 
-template<std::size_t N, std::size_t I, std::size_t P>
-std::array<Specimen<N, I>, P> RouletteSelector<N, I, P>::RunSelection(std::array<Specimen<N, I>, P> &population, Evaluator<N,I>& evaluator) {
-    Fenwick_tree<double> fenwickTree{};
-    double sum=0;
-    for (int i=0;i<P;i++){
-        sum+=evaluator.EvaluateSpecimen(population[i]);
-    }
-    for(int i =0; i<P; i++){
-//        if (i==P-1)
-//            fenwickTree.push(1);
-//        else
-        auto val =(population[i].fitness)/sum;
-            fenwickTree.push((population[i].fitness)/sum);
-    }
 
-    std::default_random_engine generator;
-    std::uniform_real_distribution distribution;
-    std::array<Specimen<N, I>, P> newGeneration;
-    for (int i=0; i<P;i++){
-        newGeneration[i] = population[fenwickTree.upper_bound(distribution(generator))];
-    }
 
-    return newGeneration;
-}
-
-template<std::size_t N, std::size_t I, std::size_t P>
-class TournamentSelector: public Selector<N,I,P> {
+class TournamentSelector: public Selector {
 
 };
 

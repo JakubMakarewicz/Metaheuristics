@@ -7,18 +7,21 @@
 int main() {
     DataLoader dataLoader;
     const int s = 10;
-    dataLoader.loadData("/home/kuba/Source/Metaheuristics/data/trivial_1.ttp");
-    std::array<Specimen<10,9>, s> pop;
+    int n = 10;
+    int items = 9;
+//    dataLoader.loadData("/home/kuba/Source/Metaheuristics/data/trivial_1.ttp"); // linux
+    dataLoader.loadData("C:\\Users\\makaron\\CLionProjects\\Metaheuristics\\data\\trivial_1.ttp"); // windows
+    std::vector<Specimen> pop;
     for (int i=0;i<s;i++){
-        Specimen<10,9> specimen;
+        Specimen specimen(n, items);
         specimen.Randomize();
-        pop[i]=specimen;
+        pop.push_back(specimen);
     }
 
-    Evaluator<10,9> evaluator;
+    Evaluator evaluator;
     evaluator.data = dataLoader.data;
 
-    RouletteSelector<10,9,s> rouletteSelector;
+    RouletteSelector rouletteSelector;
     auto pop2= rouletteSelector.RunSelection(pop,evaluator);
 
     std::sort(pop.begin(), pop.end());

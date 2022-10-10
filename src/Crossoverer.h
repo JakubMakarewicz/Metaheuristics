@@ -13,14 +13,12 @@ enum CrossoverEnum{
 };
 
 
-template<std::size_t N, std::size_t I>
 class DefaultCrossoverer;
 
-template<std::size_t N, std::size_t I>
 class Crossoverer {
     double crossoverProbability;
 
-    virtual void Cross(Specimen<N,I> lhs, Specimen<N,I> rhs)=0;
+    virtual void Cross(Specimen lhs, Specimen rhs)=0;
 //    Crossoverer<N,I> GenerateCrossoverer(CrossoverEnum crossoverEnum){
 //        switch (crossoverEnum) {
 //            case DEFAULT: {
@@ -30,9 +28,8 @@ class Crossoverer {
 //        }
 //    }
 };
-template<std::size_t N, std::size_t I>
-class DefaultCrossoverer: public Crossoverer<N,I> {
-    void Cross(Specimen<N, I> lhs, Specimen<N, I> rhs) override;
+class DefaultCrossoverer: public Crossoverer {
+    void Cross(Specimen lhs, Specimen rhs) override;
 };
 
 #endif //METAHEURISTICS_CROSSOVERER_H
