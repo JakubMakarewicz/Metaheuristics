@@ -49,65 +49,96 @@ cmake_ninja_workdir = /home/kuba/Source/Metaheuristics/cmake-build-debug/
 
 build cmake_object_order_depends_target_Metaheuristics: phony || CMakeFiles/Metaheuristics.dir
 
-build CMakeFiles/Metaheuristics.dir/main.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/main.cpp || cmake_object_order_depends_target_Metaheuristics
-  DEP_FILE = CMakeFiles/Metaheuristics.dir/main.cpp.o.d
-  FLAGS = -g
+build CMakeFiles/Metaheuristics.dir/src/Crossoverer.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Crossoverer.cpp || cmake_object_order_depends_target_Metaheuristics
+  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Crossoverer.cpp.o.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/kuba/Source/Metaheuristics/src
   OBJECT_DIR = CMakeFiles/Metaheuristics.dir
-  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir
+  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
 
 build CMakeFiles/Metaheuristics.dir/src/DataLoader.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/DataLoader.cpp || cmake_object_order_depends_target_Metaheuristics
   DEP_FILE = CMakeFiles/Metaheuristics.dir/src/DataLoader.cpp.o.d
-  FLAGS = -g
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/kuba/Source/Metaheuristics/src
   OBJECT_DIR = CMakeFiles/Metaheuristics.dir
   OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
 
 build CMakeFiles/Metaheuristics.dir/src/DataStructure.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/DataStructure.cpp || cmake_object_order_depends_target_Metaheuristics
   DEP_FILE = CMakeFiles/Metaheuristics.dir/src/DataStructure.cpp.o.d
-  FLAGS = -g
-  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
-  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
-
-build CMakeFiles/Metaheuristics.dir/src/Node.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Node.cpp || cmake_object_order_depends_target_Metaheuristics
-  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Node.cpp.o.d
-  FLAGS = -g
-  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
-  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
-
-build CMakeFiles/Metaheuristics.dir/src/Item.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Item.cpp || cmake_object_order_depends_target_Metaheuristics
-  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Item.cpp.o.d
-  FLAGS = -g
-  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
-  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
-
-build CMakeFiles/Metaheuristics.dir/src/Specimen.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Specimen.cpp || cmake_object_order_depends_target_Metaheuristics
-  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Specimen.cpp.o.d
-  FLAGS = -g
-  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
-  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
-
-build CMakeFiles/Metaheuristics.dir/src/Mutator.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Mutator.cpp || cmake_object_order_depends_target_Metaheuristics
-  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Mutator.cpp.o.d
-  FLAGS = -g
-  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
-  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
-
-build CMakeFiles/Metaheuristics.dir/src/Selector.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Selector.cpp || cmake_object_order_depends_target_Metaheuristics
-  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Selector.cpp.o.d
-  FLAGS = -g
-  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
-  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
-
-build CMakeFiles/Metaheuristics.dir/src/Crossoverer.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Crossoverer.cpp || cmake_object_order_depends_target_Metaheuristics
-  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Crossoverer.cpp.o.d
-  FLAGS = -g
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/kuba/Source/Metaheuristics/src
   OBJECT_DIR = CMakeFiles/Metaheuristics.dir
   OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
 
 build CMakeFiles/Metaheuristics.dir/src/Evaluator.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Evaluator.cpp || cmake_object_order_depends_target_Metaheuristics
   DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Evaluator.cpp.o.d
-  FLAGS = -g
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/kuba/Source/Metaheuristics/src
   OBJECT_DIR = CMakeFiles/Metaheuristics.dir
   OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
+
+build CMakeFiles/Metaheuristics.dir/src/Item.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Item.cpp || cmake_object_order_depends_target_Metaheuristics
+  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Item.cpp.o.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/kuba/Source/Metaheuristics/src
+  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
+  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
+
+build CMakeFiles/Metaheuristics.dir/src/Mutator.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Mutator.cpp || cmake_object_order_depends_target_Metaheuristics
+  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Mutator.cpp.o.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/kuba/Source/Metaheuristics/src
+  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
+  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
+
+build CMakeFiles/Metaheuristics.dir/src/Node.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Node.cpp || cmake_object_order_depends_target_Metaheuristics
+  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Node.cpp.o.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/kuba/Source/Metaheuristics/src
+  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
+  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
+
+build CMakeFiles/Metaheuristics.dir/src/Selector.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Selector.cpp || cmake_object_order_depends_target_Metaheuristics
+  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Selector.cpp.o.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/kuba/Source/Metaheuristics/src
+  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
+  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
+
+build CMakeFiles/Metaheuristics.dir/src/Specimen.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/Specimen.cpp || cmake_object_order_depends_target_Metaheuristics
+  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/Specimen.cpp.o.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/kuba/Source/Metaheuristics/src
+  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
+  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
+
+build CMakeFiles/Metaheuristics.dir/main.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/main.cpp || cmake_object_order_depends_target_Metaheuristics
+  DEP_FILE = CMakeFiles/Metaheuristics.dir/main.cpp.o.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/kuba/Source/Metaheuristics/src
+  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
+  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir
+
+build CMakeFiles/Metaheuristics.dir/src/FenwickTree.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/src/FenwickTree.cpp || cmake_object_order_depends_target_Metaheuristics
+  DEP_FILE = CMakeFiles/Metaheuristics.dir/src/FenwickTree.cpp.o.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/kuba/Source/Metaheuristics/src
+  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
+  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/src
+
+build CMakeFiles/Metaheuristics.dir/utils/bitwise.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/utils/bitwise.cpp || cmake_object_order_depends_target_Metaheuristics
+  DEP_FILE = CMakeFiles/Metaheuristics.dir/utils/bitwise.cpp.o.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/kuba/Source/Metaheuristics/src
+  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
+  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/utils
+
+build CMakeFiles/Metaheuristics.dir/utils/fenwick_tree.cpp.o: CXX_COMPILER__Metaheuristics_Debug /home/kuba/Source/Metaheuristics/utils/fenwick_tree.cpp || cmake_object_order_depends_target_Metaheuristics
+  DEP_FILE = CMakeFiles/Metaheuristics.dir/utils/fenwick_tree.cpp.o.d
+  FLAGS = -g -std=gnu++17
+  INCLUDES = -I/home/kuba/Source/Metaheuristics/src
+  OBJECT_DIR = CMakeFiles/Metaheuristics.dir
+  OBJECT_FILE_DIR = CMakeFiles/Metaheuristics.dir/utils
 
 
 # =============================================================================
@@ -117,7 +148,7 @@ build CMakeFiles/Metaheuristics.dir/src/Evaluator.cpp.o: CXX_COMPILER__Metaheuri
 #############################################
 # Link the executable Metaheuristics
 
-build Metaheuristics: CXX_EXECUTABLE_LINKER__Metaheuristics_Debug CMakeFiles/Metaheuristics.dir/main.cpp.o CMakeFiles/Metaheuristics.dir/src/DataLoader.cpp.o CMakeFiles/Metaheuristics.dir/src/DataStructure.cpp.o CMakeFiles/Metaheuristics.dir/src/Node.cpp.o CMakeFiles/Metaheuristics.dir/src/Item.cpp.o CMakeFiles/Metaheuristics.dir/src/Specimen.cpp.o CMakeFiles/Metaheuristics.dir/src/Mutator.cpp.o CMakeFiles/Metaheuristics.dir/src/Selector.cpp.o CMakeFiles/Metaheuristics.dir/src/Crossoverer.cpp.o CMakeFiles/Metaheuristics.dir/src/Evaluator.cpp.o
+build Metaheuristics: CXX_EXECUTABLE_LINKER__Metaheuristics_Debug CMakeFiles/Metaheuristics.dir/src/Crossoverer.cpp.o CMakeFiles/Metaheuristics.dir/src/DataLoader.cpp.o CMakeFiles/Metaheuristics.dir/src/DataStructure.cpp.o CMakeFiles/Metaheuristics.dir/src/Evaluator.cpp.o CMakeFiles/Metaheuristics.dir/src/Item.cpp.o CMakeFiles/Metaheuristics.dir/src/Mutator.cpp.o CMakeFiles/Metaheuristics.dir/src/Node.cpp.o CMakeFiles/Metaheuristics.dir/src/Selector.cpp.o CMakeFiles/Metaheuristics.dir/src/Specimen.cpp.o CMakeFiles/Metaheuristics.dir/main.cpp.o CMakeFiles/Metaheuristics.dir/src/FenwickTree.cpp.o CMakeFiles/Metaheuristics.dir/utils/bitwise.cpp.o CMakeFiles/Metaheuristics.dir/utils/fenwick_tree.cpp.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/Metaheuristics.dir
   POST_BUILD = :

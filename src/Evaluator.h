@@ -13,13 +13,13 @@ template<std::size_t N, std::size_t I>
 class Evaluator {
 public:
     DataStructure data;
-    double EvaluateSpecimen(const Specimen<N,I>& specimen);
+    double EvaluateSpecimen( Specimen<N,I>& specimen);
 private:
     std::tuple<double, double> GetItemsWeightAndProfitForNode(const Specimen<N,I>& specimen, int node);
 };
 
 template<std::size_t N, std::size_t I>
-double Evaluator<N, I>::EvaluateSpecimen(const Specimen<N, I> &specimen) {
+double Evaluator<N, I>::EvaluateSpecimen( Specimen<N, I> &specimen) {
     double knapsackValue=0;
     double tspCost=0;
     double currentWeight=0;
@@ -30,6 +30,7 @@ double Evaluator<N, I>::EvaluateSpecimen(const Specimen<N, I> &specimen) {
         double distance = this->data.nodes.at(specimen.nodeGenome[i]).getDistance(data.nodes.at(specimen.nodeGenome[(i+1)%N]));
         tspCost += distance/(this->data.maxSpeed - currentWeight*this->data.velocityConst);
     }
+    specimen.fitness = knapsackValue - tspCost;
     return knapsackValue - tspCost;
 }
 
