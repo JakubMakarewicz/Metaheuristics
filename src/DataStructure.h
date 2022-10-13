@@ -28,6 +28,7 @@ public:
     double velocityConst;
     std::vector<std::vector<double>> nodeAdjacencyMatrix;
     std::map<int, std::vector<Item>> itemsAtNodeMap;
+    std::vector<Item> itemsSorted;
 private:
 };
 

@@ -3,18 +3,14 @@
 //
 
 #include "Selector.h"
-std::vector<Specimen> RouletteSelector::RunSelection(std::vector<Specimen>& population, Evaluator& evaluator) {
+std::vector<Specimen> RouletteSelector::RunSelection(std::vector<Specimen>& population) {
     Fenwick_tree<double> fenwickTree{};
-    double sum=0;
-    for (int i=0;i<population.size();i++){
-        sum+=evaluator.EvaluateSpecimen(population.at(i));
-    }
-    for(int i =0; i<population.size(); i++){
-//        if (i==P-1)
-//            fenwickTree.push(1);
-//        else
-        auto val =(population[i].fitness)/sum;
-        fenwickTree.push((population.at(i).fitness)/sum);
+    double sum;
+
+    sum = this->NormalizeFitness(population);
+
+    for(auto & i : population){
+        fenwickTree.push((i.normalizedFitness)/sum);
     }
 
     std::default_random_engine generator;
@@ -25,4 +21,21 @@ std::vector<Specimen> RouletteSelector::RunSelection(std::vector<Specimen>& popu
     }
 
     return newGeneration;
+}
+
+double RouletteSelector::NormalizeFitness(std::vector<Specimen> &population) {
+    double minFitness=std::numeric_limits<double>::infinity();
+    double sum=0.0;
+    for (auto & i : population){
+        if (i.fitness < minFitness)
+            minFitness = i.fitness;
+    }
+    if (minFitness<0){
+        minFitness *=-1;
+        for (auto & i : population){
+            i.normalizedFitness = i.fitness + minFitness;
+            sum+=i.normalizedFitness;
+        }
+    }
+    return sum;
 }

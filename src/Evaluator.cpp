@@ -8,7 +8,7 @@ double Evaluator::EvaluateSpecimen(Specimen &specimen) {
     double tspCost=0;
     double currentWeight=0;
     for (int i=0; i<specimen.nodeGenome.size();i++){
-        std::tuple<double,double> nodeWeightAndProfit = this->GetItemsWeightAndProfitForNode(specimen, i);
+        std::tuple<double,double> nodeWeightAndProfit = this->GetItemsWeightAndProfitForNode(specimen, specimen.nodeGenome.at(i));
         currentWeight += std::get<0>(nodeWeightAndProfit);
         knapsackValue += std::get<1>(nodeWeightAndProfit);
         double distance = this->data.nodes.at(specimen.nodeGenome.at(i)).getDistance(data.nodes.at(specimen.nodeGenome.at((i+1)%specimen.nodeGenome.size())));

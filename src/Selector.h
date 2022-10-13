@@ -19,25 +19,14 @@ class TournamentSelector;
 class RouletteSelector;
 
 class Selector {
-    virtual std::vector<Specimen> RunSelection(std::vector<Specimen>& population, Evaluator& evaluator) = 0;
-//    Selector<N,I,P> GenerateSelector(SelectorEnum selectorEnum){
-//        switch (selectorEnum) {
-//            case ROULETTE: {
-//                RouletteSelector<N,I,P> selector{};
-//                return selector;
-//            }
-//            case TOURNAMENT: {
-//                TournamentSelector<N,I,P> selector{};
-//                return selector;
-//            }
-//        }
-//    }
+    virtual std::vector<Specimen> RunSelection(std::vector<Specimen>& population) = 0;
 };
 
 class RouletteSelector: public Selector {
 public:
-    std::vector<Specimen> RunSelection(std::vector<Specimen>& population, Evaluator& evaluator) override;
+    std::vector<Specimen> RunSelection(std::vector<Specimen>& population) override;
 private:
+    double NormalizeFitness(std::vector<Specimen>& population);
 };
 
 

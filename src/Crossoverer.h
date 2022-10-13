@@ -16,9 +16,10 @@ enum CrossoverEnum{
 class DefaultCrossoverer;
 
 class Crossoverer {
+public:
     double crossoverProbability;
 
-    virtual void Cross(Specimen lhs, Specimen rhs)=0;
+    virtual void Cross(Specimen& lhs, Specimen& rhs)=0;
 //    Crossoverer<N,I> GenerateCrossoverer(CrossoverEnum crossoverEnum){
 //        switch (crossoverEnum) {
 //            case DEFAULT: {
@@ -28,8 +29,9 @@ class Crossoverer {
 //        }
 //    }
 };
-class DefaultCrossoverer: public Crossoverer {
-    void Cross(Specimen lhs, Specimen rhs) override;
+class PMXCrossoverer: public Crossoverer {
+public:
+    void Cross(Specimen& lhs, Specimen& rhs) override;
 };
 
 #endif //METAHEURISTICS_CROSSOVERER_H

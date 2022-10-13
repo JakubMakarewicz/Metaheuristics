@@ -4,6 +4,7 @@
 
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 #include "DataLoader.h"
 
 bool DataLoader::loadData(const std::string& filePath) {
@@ -41,12 +42,12 @@ bool DataLoader::loadData(const std::string& filePath) {
         }
 //        read items
         while(getline(dataFile, line)){
-            Item item{};
             std::vector<std::string> splitLine = this->splitString(line, '\t');
-            item.index=std::stoi(splitLine[0])-1;
-            item.profit=std::stod(splitLine[1]);
-            item.weight=std::stod(splitLine[2]);
-            item.node=std::stoi(splitLine[3])-1;
+            Item item{
+            std::stoi(splitLine[0])-1,
+            std::stod(splitLine[1]),
+            std::stod(splitLine[2]),
+            std::stoi(splitLine[3])-1};
             this->data.items.push_back(item);
             if (this->data.itemsAtNodeMap.find(item.node) != this->data.itemsAtNodeMap.end()) {
                 this->data.itemsAtNodeMap.at(item.node).push_back(item);
@@ -66,6 +67,10 @@ bool DataLoader::loadData(const std::string& filePath) {
         }
 
         this->data.velocityConst = (this->data.maxSpeed - this->data.minSpeed)/this->data.knapsackCapacity;
+
+        this->data.itemsSorted=this->data.items;
+        std::sort(this->data.itemsSorted.begin(), this->data.itemsSorted.end());
+
 
         dataFile.close();
     }

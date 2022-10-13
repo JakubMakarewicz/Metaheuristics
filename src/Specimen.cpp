@@ -3,11 +3,12 @@
 //
 
 #include "Specimen.h"
+
 Specimen::Specimen(int n, int i) {
     for (int j=0;j<n;j++)
         this->nodeGenome.push_back(j);
     for (int j=0;j<i;j++)
-        this->itemGenome.push_back(true);
+        this->itemGenome.push_back(false);
 }
 
 void Specimen::Randomize() {
@@ -25,6 +26,9 @@ Specimen &Specimen::operator=(const Specimen &rhs) {
     for (int i=0;i<rhs.itemGenome.size();i++)
         this->itemGenome.push_back(rhs.itemGenome.at(i));
     this->fitness=rhs.fitness;
+    this->normalizedFitness=rhs.normalizedFitness;
+    this->calculatedFitness = rhs.calculatedFitness;
+    this->currentKnapsackWeight=rhs.currentKnapsackWeight;
     return *this;
 }
 
@@ -42,4 +46,13 @@ bool Specimen::operator<=(const Specimen &rhs) const {
 
 bool Specimen::operator>=(const Specimen &rhs) const {
     return !(*this < rhs);
+}
+
+bool Specimen::PickupItem(Item &item, DataStructure& data) {
+    if (this->currentKnapsackWeight + item.weight <= data.knapsackCapacity){
+        this->itemGenome.at(item.index) = true;
+        this->currentKnapsackWeight+=item.weight;
+        return true;
+    }
+    return false;
 }
