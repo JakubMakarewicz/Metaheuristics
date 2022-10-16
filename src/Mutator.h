@@ -7,9 +7,7 @@
 
 #include "Specimen.h"
 
-enum MutatorEnum{
-    DEFAULT
-};
+
 class SwapMutator;
 class InverseMutator;
 
@@ -23,16 +21,7 @@ public:
     virtual void MutateSpecimen(Specimen& specimen) { if (this->mutateKnapsack) this->MutateKnapsack(specimen); }
     virtual void MutateKnapsack(Specimen& specimen);
 
-    static Mutator& GenerateMutator(std::string mutatorName, double nodeMutationProbability, double itemMutationProbability, bool mutateKnapsack) {
-        if (mutatorName == "SWAP") {
-            SwapMutator mutator(nodeMutationProbability, itemMutationProbability, mutateKnapsack);
-            return mutator;
-        }
-        else if (mutatorName == "INVERSE") {
-            InverseMutator mutator(nodeMutationProbability, itemMutationProbability, mutateKnapsack);
-            return mutator;
-        }
-    }
+    static Mutator& GenerateMutator(std::string mutatorName, double nodeMutationProbability, double itemMutationProbability, bool mutateKnapsack);
 };
 class SwapMutator : public Mutator{
 public:

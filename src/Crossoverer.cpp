@@ -56,3 +56,11 @@ void PMXCrossoverer::Cross(Specimen& lhs, Specimen& rhs) {
     // lr {3:2} -> {5:2}
     // rl
 }
+
+Crossoverer& Crossoverer::GenerateCrossoverer(std::string crossovererName)
+{
+    if (crossovererName == "PMX") {
+        PMXCrossoverer crossoverer;
+        return crossoverer;
+    }
+}

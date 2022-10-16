@@ -69,3 +69,15 @@ void SpecimenFactory::GenerateGreedyItems(Specimen& specimen){
         specimen.PickupItem(this->data.items.at(i.index), this->data);
     }
 }
+
+SpecimenFactory& SpecimenFactory::GenerateSpecimenFactory(std::string specimenFactoryName, DataStructure& data)
+{
+    if (specimenFactoryName == "RANDOM") {
+        RandomSpecimenFactory factory(data);
+        return factory;
+    }
+    else if (specimenFactoryName == "GREEDY") {
+        GreedySpecimenFactory factory(data);
+        return factory;
+    }
+}

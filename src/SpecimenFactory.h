@@ -21,16 +21,7 @@ public:
 
     void GenerateGreedyItems(Specimen &specimen);
 
-    static SpecimenFactory& GenerateSpecimenFactory(std::string specimenFactoryName, DataStructure& data) {
-        if (specimenFactoryName == "RANDOM") {
-            RandomSpecimenFactory factory(data);
-            return factory;
-        }
-        else if (specimenFactoryName == "GREEDY") {
-            GreedySpecimenFactory factory(data);
-            return factory;
-        }
-    }
+    static SpecimenFactory& GenerateSpecimenFactory(std::string specimenFactoryName, DataStructure& data);
 
 };
 

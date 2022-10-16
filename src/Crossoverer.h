@@ -18,19 +18,10 @@ class PMXCrossoverer;
 class Crossoverer {
 public:
     double crossoverProbability;
-    std::mt19937 mt{ std::random_device() };
+    std::mt19937 mt{ std::random_device()() };
     std::uniform_real_distribution<> distChance{ 0, 1 };
     virtual void Cross(Specimen& lhs, Specimen& rhs) {}
-    static Crossoverer& GenerateCrossoverer(std::string crossovererName){
-        if (crossovererName == "PMX") {
-            PMXCrossoverer crossoverer;
-            return crossoverer;
-        }
-        //else if (crossovererName == "TOURNAMENT") {
-        //    TournamentSelector selector(tournamentSize);
-        //    return selector;
-        //}
-    }
+    static Crossoverer& GenerateCrossoverer(std::string crossovererName);
 };
 class PMXCrossoverer: public Crossoverer {
 public:

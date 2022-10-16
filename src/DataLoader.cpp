@@ -73,6 +73,45 @@ bool DataLoader::loadData(const std::string& filePath) {
 
 
         dataFile.close();
+        return true;
+    }
+    return false;
+}
+bool DataLoader::loadConfig(const std::string& filePath)
+{
+    std::fstream dataFile;
+    dataFile.open(filePath, std::ios::in);
+    if (dataFile.is_open()) {
+        std::string line;
+        getline(dataFile, line);
+        this->config.crossoverProbability = std::stod(this->splitString(line, '\t')[1]);
+        getline(dataFile, line);
+        this->config.nodeMutationProbability = std::stod(this->splitString(line, '\t')[1]);
+        getline(dataFile, line);
+        this->config.itemMutationProbability = std::stod(this->splitString(line, '\t')[1]);
+        getline(dataFile, line);
+        this->config.mutateKnapsack = std::stoi(this->splitString(line, '\t')[1]);
+        getline(dataFile, line);
+        this->config.generateGreedyKnapsackPostCross = std::stoi(this->splitString(line, '\t')[1]);
+        getline(dataFile, line);
+        this->config.populationSize = std::stoi(this->splitString(line, '\t')[1]);
+        getline(dataFile, line);
+        this->config.generationsCount = std::stoi(this->splitString(line, '\t')[1]);
+        getline(dataFile, line);
+        this->config.tournametBatchSize = std::stoi(this->splitString(line, '\t')[1]);
+        getline(dataFile, line);
+        this->config.selector = this->splitString(line, '\t')[1];
+        getline(dataFile, line);
+        this->config.crossoverer = this->splitString(line, '\t')[1];
+        getline(dataFile, line);
+        this->config.mutator = this->splitString(line, '\t')[1];
+        getline(dataFile, line);
+        this->config.factory = this->splitString(line, '\t')[1];
+        getline(dataFile, line);
+        this->config.dataFilePath = this->splitString(line, '\t')[1];
+        getline(dataFile, line);
+        dataFile.close();
+        return true;
     }
     return false;
 }

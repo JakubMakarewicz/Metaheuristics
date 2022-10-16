@@ -50,7 +50,7 @@ std::vector<Specimen> TournamentSelector::RunSelection(std::vector<Specimen>& po
             population.end(),
             std::back_inserter(tournamentSpecimens),
             this->tournamentSize,
-            std::mt19937{ std::random_device{}() }
+            std::mt19937( std::random_device()() )
         );
         newGeneration.push_back(this->RunSingleTournament(tournamentSpecimens));
     }
@@ -67,4 +67,16 @@ Specimen& TournamentSelector::RunSingleTournament(std::vector<Specimen>& populat
         }
     }
     return population.at(bestIndex);
+}
+
+Selector& Selector::GenerateSelector(std::string selectorName, int tournamentSize)
+{
+    if (selectorName == "ROULETTE") {
+        RouletteSelector selector;
+        return selector;
+    }
+    else if (selectorName == "TOURNAMENT") {
+        TournamentSelector selector(tournamentSize);
+        return selector;
+    }
 }

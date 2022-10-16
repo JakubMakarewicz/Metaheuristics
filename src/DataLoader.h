@@ -7,11 +7,14 @@
 
 
 #include "DataStructure.h"
+#include "Config.h"
 
 class DataLoader {
 public:
     DataStructure data;
+    Config config;
     bool loadData(const std::string& filePath);
+    bool loadConfig(const std::string& filePath);
 private:
     std::vector<std::string> splitString(const std::string& stringToSplit, char delim);
 };

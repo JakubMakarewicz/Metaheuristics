@@ -20,18 +20,9 @@ class RouletteSelector;
 
 class Selector {
 public:
-    virtual std::vector<Specimen> RunSelection(std::vector<Specimen>& population) {}
+    virtual std::vector<Specimen> RunSelection(std::vector<Specimen>& population) { return std::vector<Specimen>(); }
 
-    static Selector& GenerateSelector(std::string selectorName, int tournamentSize=0) {
-        if (selectorName == "ROULETTE"){
-            RouletteSelector selector;
-            return selector;
-        }
-        else if (selectorName == "TOURNAMENT") {
-            TournamentSelector selector(tournamentSize);
-            return selector;
-        }
-    }
+    static Selector& GenerateSelector(std::string selectorName, int tournamentSize = 0);
 
 };
 
