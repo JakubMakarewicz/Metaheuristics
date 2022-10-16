@@ -10,25 +10,41 @@
 enum MutatorEnum{
     DEFAULT
 };
-class DefaultMutator;
+class SwapMutator;
+class InverseMutator;
 
 class Mutator {
 public:
-    double mutationProbability;
+    double nodeMutationProbability;
+    double itemMutationProbability;
+    bool mutateKnapsack;
+    Mutator() {}
+    Mutator(double nodeMutationProbability, double itemMutationProbability, bool mutateKnapsack) : nodeMutationProbability(nodeMutationProbability), itemMutationProbability(itemMutationProbability), mutateKnapsack(mutateKnapsack) {}
+    virtual void MutateSpecimen(Specimen& specimen) { if (this->mutateKnapsack) this->MutateKnapsack(specimen); }
+    virtual void MutateKnapsack(Specimen& specimen);
 
-    virtual void MutateSpecimen(Specimen& specimen) = 0;
-//    Mutator<N,I> GenerateMutator(MutatorEnum mutatorEnum){
-//        switch (mutatorEnum) {
-//            case DEFAULT: {
-//                DefaultMutator<N,I> mutator{};
-//                return mutator;
-//            }
-//        }
-//    }
+    static Mutator& GenerateMutator(std::string mutatorName, double nodeMutationProbability, double itemMutationProbability, bool mutateKnapsack) {
+        if (mutatorName == "SWAP") {
+            SwapMutator mutator(nodeMutationProbability, itemMutationProbability, mutateKnapsack);
+            return mutator;
+        }
+        else if (mutatorName == "INVERSE") {
+            InverseMutator mutator(nodeMutationProbability, itemMutationProbability, mutateKnapsack);
+            return mutator;
+        }
+    }
 };
-class DefaultMutator : public Mutator{
+class SwapMutator : public Mutator{
+public:
+    SwapMutator(double nodeMutationProbability, double itemMutationProbability, bool mutateKnapsack) : Mutator(nodeMutationProbability, itemMutationProbability, mutateKnapsack) {}
     void MutateSpecimen(Specimen &specimen) override;
 };
+class InverseMutator : public Mutator {
+public:
+    InverseMutator(double nodeMutationProbability, double itemMutationProbability, bool mutateKnapsack) : Mutator(nodeMutationProbability, itemMutationProbability, mutateKnapsack) {}
+    void MutateSpecimen(Specimen& specimen) override;
+};
+
 
 
 #endif //METAHEURISTICS_MUTATOR_H

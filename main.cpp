@@ -6,13 +6,23 @@
 #include "SpecimenFactory.h"
 #include "Crossoverer.h"
 
+bool es() { 
+    for (int i = 0; i < 2147483647; i++) {
+        if ((i ^ 123) == -23)
+            return true;
+    }
+    return false;
+}
+
 int main() {
+    //if (es()) { std::cout << "found"; }
+    //else { std::cout << "ended"; }
     DataLoader dataLoader;
     const int s = 10;
     int n = 10;
     int items = 9;
-    dataLoader.loadData("/home/kuba/Source/Metaheuristics/data/trivial_1.ttp"); // linux
-//    dataLoader.loadData("C:\\Users\\makaron\\CLionProjects\\Metaheuristics\\data\\trivial_1.ttp"); // windows
+    //dataLoader.loadData("/home/kuba/Source/Metaheuristics/data/trivial_1.ttp"); // linux
+    dataLoader.loadData("C:\\Users\\makaron\\CLionProjects\\Metaheuristics\\data\\trivial_1.ttp"); // windows
     std::vector<Specimen> pop;
 
     GreedySpecimenFactory factory{&dataLoader.data};
@@ -32,6 +42,7 @@ int main() {
 
     std::sort(pop.begin(), pop.end());
     std::sort(pop2.begin(), pop2.end());
+
 
     for (int i =0; i<s; i++){
         std::cout<<pop[i].fitness<<" | "<<pop2[i].fitness <<"\n";

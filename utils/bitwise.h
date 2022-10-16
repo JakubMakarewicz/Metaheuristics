@@ -20,13 +20,14 @@ template<typename T,
 inline std::size_t count_left_zeros_nz(T x)
 {
     assert(x > 0);
-
     if constexpr (std::is_same_v<T, unsigned long long>)
-        return static_cast<std::size_t>(__builtin_clzll(x));
+        //return static_cast<std::size_t>(__builtin_clzll(x));
+        return static_cast<std::size_t>(__lzcnt64(x));
     else if constexpr (std::is_same_v<T, unsigned long>)
-        return static_cast<std::size_t>(__builtin_clzl(x));
+            //return static_cast<std::size_t>(__builtin_clzl(x));
+        return static_cast<std::size_t>(__lzcnt(x));
     else if constexpr (sizeof(T) <= sizeof(unsigned int))
-        return static_cast<std::size_t>(__builtin_clz(x) -
+        return static_cast<std::size_t>(__lzcnt16(x) -
                                         CHAR_BIT * (sizeof(unsigned int) - sizeof(T)));
 }
 

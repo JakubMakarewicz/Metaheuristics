@@ -3,8 +3,10 @@
 //
 
 #include "Crossoverer.h"
+#include <unordered_map>
 
 void PMXCrossoverer::Cross(Specimen& lhs, Specimen& rhs) {
+    if (this->distChance(mt) > this->crossoverProbability) { return; }
     // select start, end
     std::random_device rd;
     std::mt19937 mt(rd());

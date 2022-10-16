@@ -8,27 +8,41 @@
 
 #include "Specimen.h"
 #include "DataStructure.h"
-
+class RandomSpecimenFactory;
+class GreedySpecimenFactory;
 class SpecimenFactory {
 public:
-    SpecimenFactory(DataStructure* data){ this->data = data;}
-    DataStructure* data;
-    virtual void InitializeSpecimen(Specimen& specimen)=0;
+    SpecimenFactory();
+    SpecimenFactory(DataStructure& data) { this->data = data; }
+    DataStructure data;
+    virtual void InitializeSpecimen(Specimen& specimen){}
 
     int GetClosest(int currentNode, std::vector<bool>& availableNodes) const;
 
     void GenerateGreedyItems(Specimen &specimen);
+
+    static SpecimenFactory& GenerateSpecimenFactory(std::string specimenFactoryName, DataStructure& data) {
+        if (specimenFactoryName == "RANDOM") {
+            RandomSpecimenFactory factory(data);
+            return factory;
+        }
+        else if (specimenFactoryName == "GREEDY") {
+            GreedySpecimenFactory factory(data);
+            return factory;
+        }
+    }
+
 };
 
 class RandomSpecimenFactory: public SpecimenFactory{
 public:
-    RandomSpecimenFactory(DataStructure* data): SpecimenFactory(data){}
+    RandomSpecimenFactory(DataStructure& data): SpecimenFactory(data){}
     void InitializeSpecimen(Specimen& specimen) override;
 };
 
 class GreedySpecimenFactory: public SpecimenFactory{
 public:
-    GreedySpecimenFactory(DataStructure* data): SpecimenFactory(data){}
+    GreedySpecimenFactory(DataStructure& data): SpecimenFactory(data){}
     void InitializeSpecimen(Specimen& specimen) override;
 };
 #endif //METAHEURISTICS_SPECIMENFACTORY_H
