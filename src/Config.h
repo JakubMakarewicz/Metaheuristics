@@ -9,10 +9,12 @@ public:
 	bool generateGreedyKnapsackPostCross;
 	int populationSize;
 	int generationsCount;
-	int tournametBatchSize;
+	int tournamentBatchSize;
 	std::string selector;
 	std::string crossoverer;
 	std::string mutator;
 	std::string factory;
 	std::string dataFilePath;
+    std::string algorithm;
+    //TODO: place random engines here
 };

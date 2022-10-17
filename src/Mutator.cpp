@@ -7,14 +7,14 @@ void Mutator::MutateKnapsack(Specimen& specimen){
 	std::random_device rd;
 	std::mt19937 mt(rd());
 	std::uniform_real_distribution<> distChance(0, 1);
-	for (auto& i : specimen.itemGenome) {
-		if (i) {
-			double chance = distChance(mt);
-			if (chance < this->itemMutationProbability) {
-				i.flip();
-			}
-		}
-	}
+    for (auto && i : specimen.itemGenome){
+        if (i) {
+            double chance = distChance(mt);
+            if (chance < this->itemMutationProbability) {
+                i.flip();
+            }
+        }
+    }
 }
 
 Mutator& Mutator::GenerateMutator(std::string mutatorName, double nodeMutationProbability, double itemMutationProbability, bool mutateKnapsack)

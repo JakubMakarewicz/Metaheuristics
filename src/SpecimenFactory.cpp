@@ -12,7 +12,7 @@ void RandomSpecimenFactory::InitializeSpecimen(Specimen &specimen) {
     }
     std::shuffle(specimen.nodeGenome.begin(), specimen.nodeGenome.end(), std::mt19937(std::random_device()()));
 
-    this->GenerateGreedyItems(specimen);
+    this->GenerateGreedyItems(specimen); // TODO: random items
 }
 
 void GreedySpecimenFactory::InitializeSpecimen(Specimen &specimen) {

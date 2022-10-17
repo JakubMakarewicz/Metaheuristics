@@ -16,24 +16,38 @@ public:
 	SpecimenFactory* specimenFactory;
 	DataStructure* data;
 	Config* config;
+    Evaluator* evaluator;
 
-	Algorithm(Config& config) {
-		this->config = &config;
-		DataLoader dataLoader;
-		dataLoader.loadData(config.dataFilePath);
-		this->data = &dataLoader.data;
+    std::vector<std::reference_wrapper<Specimen>> population; // TODO: use reference vector
+    std::vector<Specimen> bestSpecimens;
+    std::vector<Specimen> worstSpecimens;
+    std::vector<double> averageScores;
+
+    int currentGeneration;
+
+	Algorithm(Config& config, DataStructure& data) {
+        this->config = &config;
+        this->data = &data;
 		this->crossoverer = &Crossoverer::GenerateCrossoverer(config.crossoverer);
 		this->mutator = &Mutator::GenerateMutator(config.mutator, config.nodeMutationProbability, config.itemMutationProbability, config.mutateKnapsack);
-		this->selector = &Selector::GenerateSelector(config.selector);
+		this->selector = &Selector::GenerateSelector(config.selector, config.tournamentBatchSize);
 		this->specimenFactory = &SpecimenFactory::GenerateSpecimenFactory(config.factory, *this->data);
+        this->evaluator = new Evaluator();
 	}
-	virtual void Run();
+
+    static Algorithm& GenerateAlgorithm(Config& config, DataStructure& data);
+
+    virtual void Run();
 private:
-	std::vector<Specimen> bestSpecimens;
-	std::vector<double> avgScores;
-	std::vector<Specimen> worstSpecimens;
-	virtual void RunIteration() = 0;
-	virtual void Initialize() = 0;
-	virtual bool CanRun() = 0;
+	virtual void RunIteration();
+	virtual void Initialize();
+	virtual bool CanRun();
 	virtual void Log();
+    virtual void SaveGenerationResult();
+};
+
+class NonGeneticAlgorithm: public Algorithm{
+public:
+    NonGeneticAlgorithm(Config& config, DataStructure& data): Algorithm(config, data){}
+    void RunIteration() override;
 };
