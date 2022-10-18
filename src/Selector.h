@@ -20,17 +20,17 @@ class RouletteSelector;
 
 class Selector {
 public:
-    virtual std::vector<Specimen> RunSelection(std::vector<Specimen>& population) { return std::vector<Specimen>(); }
+    virtual std::vector<Specimen*> RunSelection(std::vector<Specimen*>& population) = 0;
 
-    static Selector& GenerateSelector(std::string selectorName, int tournamentSize = 0);
+    static Selector* GenerateSelector(std::string selectorName, int tournamentSize = 0);
 
 };
 
 class RouletteSelector: public Selector {
 public:
-    std::vector<Specimen> RunSelection(std::vector<Specimen>& population) override;
+    std::vector<Specimen*> RunSelection(std::vector<Specimen*>& population) override;
 private:
-    double NormalizeFitness(std::vector<Specimen>& population);
+    double NormalizeFitness(std::vector<Specimen*>& population);
 };
 
 
@@ -40,9 +40,9 @@ public:
     int tournamentSize;
 
     TournamentSelector(int tournamentSize) { this->tournamentSize = tournamentSize; }
-    std::vector<Specimen> RunSelection(std::vector<Specimen>& population) override;
+    std::vector<Specimen*> RunSelection(std::vector<Specimen*>& population) override;
 private:
-    Specimen& RunSingleTournament(std::vector<Specimen>& population);
+    Specimen* RunSingleTournament(std::vector<Specimen*>& population);
 };
 
 #endif //METAHEURISTICS_SELECTOR_H

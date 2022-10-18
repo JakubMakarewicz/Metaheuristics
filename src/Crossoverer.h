@@ -22,7 +22,7 @@ public:
     std::uniform_real_distribution<> distChance{ 0, 1 };
     virtual void Cross(Specimen& lhs, Specimen& rhs) {}
     Crossoverer(double crossoverProbability) : crossoverProbability(crossoverProbability) {}
-    static Crossoverer& GenerateCrossoverer(std::string crossovererName, double crossoverProbability);
+    static Crossoverer* GenerateCrossoverer(std::string crossovererName, double crossoverProbability);
 };
 class PMXCrossoverer: public Crossoverer {
 public:

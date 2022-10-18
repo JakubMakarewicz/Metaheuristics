@@ -17,15 +17,13 @@ void Mutator::MutateKnapsack(Specimen& specimen){
     }
 }
 
-Mutator& Mutator::GenerateMutator(std::string mutatorName, double nodeMutationProbability, double itemMutationProbability, bool mutateKnapsack)
+Mutator* Mutator::GenerateMutator(std::string mutatorName, double nodeMutationProbability, double itemMutationProbability, bool mutateKnapsack)
 {
 	if (mutatorName == "SWAP") {
-		SwapMutator mutator(nodeMutationProbability, itemMutationProbability, mutateKnapsack);
-		return mutator;
+		return new SwapMutator(nodeMutationProbability, itemMutationProbability, mutateKnapsack);
 	}
 	else if (mutatorName == "INVERSE") {
-		InverseMutator mutator(nodeMutationProbability, itemMutationProbability, mutateKnapsack);
-		return mutator;
+		return new InverseMutator(nodeMutationProbability, itemMutationProbability, mutateKnapsack);
 	}
 }
 

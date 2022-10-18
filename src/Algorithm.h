@@ -18,7 +18,7 @@ public:
 	Config* config;
     Evaluator* evaluator;
 
-    std::vector<std::reference_wrapper<Specimen>> population;
+    std::vector<Specimen*> population;
     std::vector<Specimen> bestSpecimens;
     std::vector<Specimen> worstSpecimens;
     std::vector<double> averageScores;
@@ -27,21 +27,27 @@ public:
 
 	Algorithm(Config& config, DataStructure& data);
 
-    static Algorithm& GenerateAlgorithm(Config& config, DataStructure& data);
+    static Algorithm* GenerateAlgorithm(Config& config, DataStructure& data);
 
     void Run();
 protected:
-	void RunIteration();
-	void Initialize();
-	bool CanRun();
-	void Log();
-    void SaveGenerationResult();
+	virtual void RunIteration()=0;
+	virtual void Initialize();
+	virtual bool CanRun();
+	virtual void Log();
+	virtual void SaveGenerationResult();
 };
 
-class NonGeneticAlgorithm: virtual public Algorithm{
+class NonGeneticAlgorithm: public Algorithm{
 public:
     NonGeneticAlgorithm(Config& config, DataStructure& data): Algorithm(config, data){}
 protected:
-	void RunIteration();
-	//void Initialize(){ this->Initialize(); }
+	void RunIteration() override;
+};
+
+class GeneticAlgorithm : public Algorithm {
+public:
+	GeneticAlgorithm(Config& config, DataStructure& data) : Algorithm(config, data) {}
+protected:
+	void RunIteration() override;
 };

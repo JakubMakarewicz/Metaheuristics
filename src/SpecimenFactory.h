@@ -21,7 +21,7 @@ public:
 
     void GenerateGreedyItems(Specimen &specimen);
 
-    static SpecimenFactory& GenerateSpecimenFactory(std::string specimenFactoryName, DataStructure& data);
+    static SpecimenFactory* GenerateSpecimenFactory(std::string specimenFactoryName, DataStructure& data);
 
 };
 

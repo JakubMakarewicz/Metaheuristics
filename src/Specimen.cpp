@@ -49,6 +49,9 @@ bool Specimen::operator>=(const Specimen &rhs) const {
 }
 
 bool Specimen::PickupItem(Item &item, DataStructure& data) {
+    if (this->itemGenome.size() == 0)
+        for (int i = 0; i < data.items.size();i++)
+            this->itemGenome.push_back(false);
     if (this->currentKnapsackWeight + item.weight <= data.knapsackCapacity){
         this->itemGenome.at(item.index) = true;
         this->currentKnapsackWeight+=item.weight;

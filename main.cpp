@@ -3,20 +3,12 @@
 #include "Specimen.h"
 #include "Algorithm.h"
 
-bool es() { 
-    for (int i = 0; i < 2147483647; i++) {
-        if ((i ^ 123) == -23)
-            return true;
-    }
-    return false;
-}
-
 int main() {
     DataLoader dataLoader;
     dataLoader.loadConfig("C:\\Users\\makaron\\source\\repos\\JakubMakarewicz\\Metaheuristics\\configs\\config1.txt");
     dataLoader.loadData(dataLoader.config.dataFilePath);
     //NonGeneticAlgorithm* algorithm = new NonGeneticAlgorithm(dataLoader.config, dataLoader.data);
-    Algorithm* algorithm = &Algorithm::GenerateAlgorithm(dataLoader.config, dataLoader.data);
+    Algorithm* algorithm = Algorithm::GenerateAlgorithm(dataLoader.config, dataLoader.data);
     algorithm->Run();
     int i =0;
 

@@ -12,7 +12,7 @@ void RandomSpecimenFactory::InitializeSpecimen(Specimen &specimen) {
     }
     std::shuffle(specimen.nodeGenome.begin(), specimen.nodeGenome.end(), std::mt19937(std::random_device()()));
 
-    this->GenerateGreedyItems(specimen); // TODO: random items
+    this->GenerateGreedyItems(specimen);
 }
 
 void GreedySpecimenFactory::InitializeSpecimen(Specimen &specimen) {
@@ -70,14 +70,12 @@ void SpecimenFactory::GenerateGreedyItems(Specimen& specimen){
     }
 }
 
-SpecimenFactory& SpecimenFactory::GenerateSpecimenFactory(std::string specimenFactoryName, DataStructure& data)
+SpecimenFactory* SpecimenFactory::GenerateSpecimenFactory(std::string specimenFactoryName, DataStructure& data)
 {
     if (specimenFactoryName == "RANDOM") {
-        RandomSpecimenFactory factory(data);
-        return factory;
+        return new RandomSpecimenFactory(data);
     }
     else if (specimenFactoryName == "GREEDY") {
-        GreedySpecimenFactory factory(data);
-        return factory;
+        return new GreedySpecimenFactory(data);
     }
 }

@@ -12,6 +12,7 @@
 class Evaluator {
 public:
     DataStructure data;
+    Evaluator(DataStructure& data) { this->data = data; }
     double EvaluateSpecimen( Specimen& specimen);
 private:
     std::tuple<double, double> GetItemsWeightAndProfitForNode(const Specimen& specimen, int node);

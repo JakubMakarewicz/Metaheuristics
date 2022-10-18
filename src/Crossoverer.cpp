@@ -57,10 +57,9 @@ void PMXCrossoverer::Cross(Specimen& lhs, Specimen& rhs) {
     // rl
 }
 
-Crossoverer& Crossoverer::GenerateCrossoverer(std::string crossovererName, double crossoverProbability)
+Crossoverer* Crossoverer::GenerateCrossoverer(std::string crossovererName, double crossoverProbability)
 {
     if (crossovererName == "PMX") {
-        PMXCrossoverer crossoverer(crossoverProbability);
-        return crossoverer;
+        return new PMXCrossoverer(crossoverProbability);
     }
 }
