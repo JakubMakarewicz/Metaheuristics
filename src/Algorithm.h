@@ -2,12 +2,12 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include <SpecimenFactory.cpp>
-#include <Crossoverer.cpp>
-#include <Mutator.cpp>
-#include <Selector.cpp>
+#include "SpecimenFactory.h"
+#include "Crossoverer.h"
+#include "Mutator.h"
+#include "Selector.h"
 #include "Config.h"
-#include <DataLoader.cpp>
+#include "DataLoader.h"
 class Algorithm {
 public: 
 	Crossoverer* crossoverer;
@@ -18,36 +18,30 @@ public:
 	Config* config;
     Evaluator* evaluator;
 
-    std::vector<std::reference_wrapper<Specimen>> population; // TODO: use reference vector
+    std::vector<std::reference_wrapper<Specimen>> population;
     std::vector<Specimen> bestSpecimens;
     std::vector<Specimen> worstSpecimens;
     std::vector<double> averageScores;
 
     int currentGeneration;
 
-	Algorithm(Config& config, DataStructure& data) {
-        this->config = &config;
-        this->data = &data;
-		this->crossoverer = &Crossoverer::GenerateCrossoverer(config.crossoverer);
-		this->mutator = &Mutator::GenerateMutator(config.mutator, config.nodeMutationProbability, config.itemMutationProbability, config.mutateKnapsack);
-		this->selector = &Selector::GenerateSelector(config.selector, config.tournamentBatchSize);
-		this->specimenFactory = &SpecimenFactory::GenerateSpecimenFactory(config.factory, *this->data);
-        this->evaluator = new Evaluator();
-	}
+	Algorithm(Config& config, DataStructure& data);
 
     static Algorithm& GenerateAlgorithm(Config& config, DataStructure& data);
 
-    virtual void Run();
-private:
-	virtual void RunIteration();
-	virtual void Initialize();
-	virtual bool CanRun();
-	virtual void Log();
-    virtual void SaveGenerationResult();
+    void Run();
+protected:
+	void RunIteration();
+	void Initialize();
+	bool CanRun();
+	void Log();
+    void SaveGenerationResult();
 };
 
-class NonGeneticAlgorithm: public Algorithm{
+class NonGeneticAlgorithm: virtual public Algorithm{
 public:
     NonGeneticAlgorithm(Config& config, DataStructure& data): Algorithm(config, data){}
-    void RunIteration() override;
+protected:
+	void RunIteration();
+	//void Initialize(){ this->Initialize(); }
 };

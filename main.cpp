@@ -1,6 +1,7 @@
 #include <iostream>
 #include "DataLoader.h"
 #include "Specimen.h"
+#include "Algorithm.h"
 
 bool es() { 
     for (int i = 0; i < 2147483647; i++) {
@@ -12,10 +13,13 @@ bool es() {
 
 int main() {
     DataLoader dataLoader;
-    dataLoader.loadConfig("/home/kuba/Source/Metaheuristics/configs/config1.txt");
+    dataLoader.loadConfig("C:\\Users\\makaron\\source\\repos\\JakubMakarewicz\\Metaheuristics\\configs\\config1.txt");
     dataLoader.loadData(dataLoader.config.dataFilePath);
-//    Algorithm algorithm = Algorithm::GenerateAlgorithm(dataLoader.config, dataLoader.data);
+    //NonGeneticAlgorithm* algorithm = new NonGeneticAlgorithm(dataLoader.config, dataLoader.data);
+    Algorithm* algorithm = &Algorithm::GenerateAlgorithm(dataLoader.config, dataLoader.data);
+    algorithm->Run();
     int i =0;
+
     //dataLoader.loadData("/home/kuba/Source/Metaheuristics/data/trivial_1.ttp"); // linux
 //    dataLoader.loadData("C:\\Users\\makaron\\CLionProjects\\Metaheuristics\\data\\trivial_1.ttp"); // windows
 //    std::vector<Specimen> pop;

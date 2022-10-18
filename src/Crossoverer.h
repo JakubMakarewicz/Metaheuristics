@@ -21,10 +21,12 @@ public:
     std::mt19937 mt{ std::random_device()() };
     std::uniform_real_distribution<> distChance{ 0, 1 };
     virtual void Cross(Specimen& lhs, Specimen& rhs) {}
-    static Crossoverer& GenerateCrossoverer(std::string crossovererName);
+    Crossoverer(double crossoverProbability) : crossoverProbability(crossoverProbability) {}
+    static Crossoverer& GenerateCrossoverer(std::string crossovererName, double crossoverProbability);
 };
 class PMXCrossoverer: public Crossoverer {
 public:
+    PMXCrossoverer(double crossoverProbability) : Crossoverer(crossoverProbability) {}
     void Cross(Specimen& lhs, Specimen& rhs) override;
 };
 

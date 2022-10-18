@@ -14,22 +14,25 @@ void Algorithm::Log(){
 	logFile.open("example.csv");
 	logFile.close();
 }
-void Algorithm::Initialize(){
+
+void Algorithm::Initialize()
+{
     this->population.clear();
-    this->currentGeneration=0;
-    for (int i =0; i<this->config->populationSize; i++){
+    this->currentGeneration = 0;
+    for (int i = 0; i < this->config->populationSize; i++) {
         Specimen s;
         this->specimenFactory->InitializeSpecimen(s);
         this->evaluator->EvaluateSpecimen(s);
         this->population.push_back(s);
     }
 }
+
 bool Algorithm::CanRun(){
-    return this->currentGeneration<this->config->generationsCount;
+    return this->currentGeneration < this->config->generationsCount;
 }
 
-void Algorithm::RunIteration(){
-    throw;}
+void Algorithm::RunIteration(){}
+
 
 void Algorithm::SaveGenerationResult() {
     double worstScore = std::numeric_limits<double>::infinity();
@@ -54,7 +57,19 @@ void Algorithm::SaveGenerationResult() {
     this->averageScores.push_back(sum/this->config->populationSize);
 }
 
-Algorithm& GenerateAlgorithm(Config& config, DataStructure& data){
+Algorithm::Algorithm(Config& config, DataStructure& data)
+{
+    this->config = &config;
+    this->data = &data;
+    this->crossoverer = &Crossoverer::GenerateCrossoverer(config.crossoverer, config.crossoverProbability);
+    this->mutator = &Mutator::GenerateMutator(config.mutator, config.nodeMutationProbability, config.itemMutationProbability, config.mutateKnapsack);
+    this->selector = &Selector::GenerateSelector(config.selector, config.tournamentBatchSize);
+    this->specimenFactory = &SpecimenFactory::GenerateSpecimenFactory(config.factory, *this->data);
+    this->evaluator = new Evaluator();
+    this->currentGeneration = 0;
+}
+
+Algorithm& Algorithm::GenerateAlgorithm(Config& config, DataStructure& data){
     if (config.algorithm == "NON_GENETIC"){
         NonGeneticAlgorithm algorithm{config, data};
         return algorithm;
