@@ -55,7 +55,7 @@ std::vector<Specimen*> TournamentSelector::RunSelection(std::vector<Specimen*>& 
             population.end(),
             std::back_inserter(tournamentSpecimens),
             this->tournamentSize,
-            RandomGenerators::tournamentEngine
+            std::mt19937(std::random_device()())
         );
         newGeneration.push_back(this->RunSingleTournament(tournamentSpecimens));
     }

@@ -11,7 +11,7 @@ void RandomSpecimenFactory::InitializeSpecimen(Specimen &specimen) {
     for (int i = 0; i<this->data.nodeCount; i++){
         specimen.nodeGenome.push_back(i);
     }
-    std::shuffle(specimen.nodeGenome.begin(), specimen.nodeGenome.end(), RandomGenerators::tournamentEngine);
+    std::shuffle(specimen.nodeGenome.begin(), specimen.nodeGenome.end(), std::mt19937(std::random_device()()));
 
     this->GenerateGreedyItems(specimen);
 }

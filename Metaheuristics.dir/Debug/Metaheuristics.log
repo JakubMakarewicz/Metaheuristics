@@ -96,32 +96,78 @@ C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.3132
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\xutility(5963,20): error C2923: 'std::conditional_t': '_Ty1' is not a valid template type argument for parameter '_Ty2'
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\xutility(5963): message : see declaration of '_Ty1'
   Selector.cpp
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\xutility(5961,27): error C2825: '_Urng': must be a class or namespace when followed by '::'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\algorithm(4761): message : see reference to class template instantiation 'std::_Rng_from_urng<__int64,std::mt19937 *>' being compiled
-C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\src\Selector.cpp(59): message : see reference to function template instantiation '_SampleIt std::sample<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,std::back_insert_iterator<std::vector<_Ty,std::allocator<_Ty>>>,int,std::mt19937*&>(_PopIt,_PopIt,_SampleIt,_Diff,_Urng)' being compiled
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\random(310,54): error C2228: left of '.min' must have class/struct/union
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\random(310,54): message : type is '_Gen'
           with
           [
-              _SampleIt=std::back_insert_iterator<std::vector<Specimen *,std::allocator<Specimen *>>>,
-              _Ty=Specimen *,
-              _PopIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<Specimen *>>>,
-              _Diff=int,
-              _Urng=std::mt19937 *&
+              _Gen=std::mt19937 *
           ]
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\xutility(5961,34): error C2510: '_Urng': left of '::' must be a class/struct/union
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\xutility(5961,1): error C2061: syntax error: identifier 'result_type'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\xutility(5963,41): error C2065: '_Ty1': undeclared identifier
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\xutility(5963,69): error C2065: '_Ty1': undeclared identifier
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\xutility(5963,20): error C2923: 'std::conditional_t': '_Ty1' is not a valid template type argument for parameter '_Ty2'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\xutility(5963): message : see declaration of '_Ty1'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\random(310,54): message : did you intend to use '->' instead?
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\random(2707): message : see reference to function template instantiation '_Real std::_Nrand_impl<_Ty,_Engine>(_Gen &)' being compiled
+          with
+          [
+              _Real=double,
+              _Ty=double,
+              _Engine=std::mt19937 *,
+              _Gen=std::mt19937 *
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\random(2667): message : see reference to function template instantiation 'double std::uniform_real<_Ty>::_Eval<_Engine>(_Engine &,const std::uniform_real<_Ty>::param_type &) const' being compiled
+          with
+          [
+              _Ty=double,
+              _Engine=std::mt19937 *
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\random(2667): message : see reference to function template instantiation 'double std::uniform_real<_Ty>::_Eval<_Engine>(_Engine &,const std::uniform_real<_Ty>::param_type &) const' being compiled
+          with
+          [
+              _Ty=double,
+              _Engine=std::mt19937 *
+          ]
+C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\src\Selector.cpp(24): message : see reference to function template instantiation 'double std::uniform_real<_Ty>::operator ()<std::mt19937*>(_Engine &) const' being compiled
+          with
+          [
+              _Ty=double,
+              _Engine=std::mt19937 *
+          ]
+C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\src\Selector.cpp(24): message : see reference to function template instantiation 'double std::uniform_real<_Ty>::operator ()<std::mt19937*>(_Engine &) const' being compiled
+          with
+          [
+              _Ty=double,
+              _Engine=std::mt19937 *
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\random(310,21): error C2737: '_Gxmin': const object must be initialized
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\random(311,21): error C2737: '_Gxmax': const object must be initialized
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\random(321,41): error C2064: term does not evaluate to a function taking 0 arguments
   SpecimenFactory.cpp
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\xutility(5961,27): error C2825: '_Urng': must be a class or namespace when followed by '::'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\algorithm(4910): message : see reference to class template instantiation 'std::_Rng_from_urng<__int64,_Urng0>' being compiled
-C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\src\SpecimenFactory.cpp(14): message : see reference to function template instantiation 'void std::shuffle<std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>,std::mt19937*&>(_RanIt,_RanIt,_Urng)' being compiled
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\random(1872): message : see reference to class template instantiation 'std::_Rng_from_urng<unsigned int,_Engine>' being compiled
           with
           [
-              _Ty=int32_t,
-              _RanIt=std::_Vector_iterator<std::_Vector_val<std::_Simple_types<int32_t>>>,
-              _Urng=std::mt19937 *&
+              _Engine=std::mt19937 *
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\random(1838): message : see reference to function template instantiation 'int std::uniform_int<_Ty>::_Eval<_Engine>(_Engine &,_Ty,_Ty) const' being compiled
+          with
+          [
+              _Ty=int,
+              _Engine=std::mt19937 *
+          ]
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\random(1838): message : see reference to function template instantiation 'int std::uniform_int<_Ty>::_Eval<_Engine>(_Engine &,_Ty,_Ty) const' being compiled
+          with
+          [
+              _Ty=int,
+              _Engine=std::mt19937 *
+          ]
+C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\src\SpecimenFactory.cpp(21): message : see reference to function template instantiation 'int std::uniform_int<_Ty>::operator ()<std::mt19937*>(_Engine &) const' being compiled
+          with
+          [
+              _Ty=int,
+              _Engine=std::mt19937 *
+          ]
+C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\src\SpecimenFactory.cpp(21): message : see reference to function template instantiation 'int std::uniform_int<_Ty>::operator ()<std::mt19937*>(_Engine &) const' being compiled
+          with
+          [
+              _Ty=int,
+              _Engine=std::mt19937 *
           ]
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\xutility(5961,34): error C2510: '_Urng': left of '::' must be a class/struct/union
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.32.31326\include\xutility(5961,1): error C2061: syntax error: identifier 'result_type'
