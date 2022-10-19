@@ -16,13 +16,13 @@ std::vector<Specimen*> RouletteSelector::RunSelection(std::vector<Specimen*>& po
     }
 
     rand->rouletteDist = new std::uniform_real_distribution<>(0, sum_a_i);
-    std::random_device rd;
-    std::mt19937 mt(rd());
+    //std::random_device rd;
+    //std::mt19937_64 mt(rd());
 
     std::vector<Specimen*> newGeneration;
     for (int i=0; i<population.size();i++){
         //Specimen newSpecimen(population.at(fenwickTree.upper_bound(distribution(generator))));
-        newGeneration.push_back(population.at(fenwickTree.upper_bound((*(rand->RandomGenerators::rouletteDist))(mt))));
+        newGeneration.push_back(population.at(fenwickTree.upper_bound((*(rand->RandomGenerators::rouletteDist))(*rand->mt))));
     }
 
     return newGeneration;
@@ -31,18 +31,20 @@ std::vector<Specimen*> RouletteSelector::RunSelection(std::vector<Specimen*>& po
 double RouletteSelector::NormalizeFitness(std::vector<Specimen*> &population) {
     double minFitness=std::numeric_limits<double>::infinity();
     double sum=0.0;
-    for (auto & i : population){
-        if (i->fitness < minFitness)
-            minFitness = i->fitness;
+    for (int i = 0; i<population.size(); i++){
+        if (population.at(i)->fitness < minFitness)
+            minFitness = population.at(i)->fitness;
     }
+    bool wasNegative = false;
     if (minFitness < 0) {
         minFitness *= -1;
+        wasNegative = true;
     }
-    for (auto & i : population){
-        if (minFitness < 0)
-            i->normalizedFitness = i->fitness + minFitness;
-        else i->normalizedFitness = i->fitness - minFitness;
-        sum += i->normalizedFitness;
+    for (int i = 0; i < population.size(); i++) {
+        if (wasNegative)
+            population.at(i)->normalizedFitness = population.at(i)->fitness + minFitness;
+        else population.at(i)->normalizedFitness = population.at(i)->fitness - minFitness;
+        sum += population.at(i)->normalizedFitness;
     }
     return sum;
 }

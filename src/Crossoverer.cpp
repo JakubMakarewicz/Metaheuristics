@@ -7,14 +7,14 @@
 #include "RandomGenerators.h"
 
 void PMXCrossoverer::Cross(Specimen& lhs, Specimen& rhs) {
-    std::random_device rd;
-    std::mt19937 mt(rd());
-    if ((*rand->distChance)(mt) > this->crossoverProbability) {
+    //std::random_device rd;
+    //std::mt19937_64 mt(rd());
+    if ((*rand->distChance)(*rand->mt) > this->crossoverProbability) {
         return; 
     }
     // select start, end
-    int start = (*rand->distStart)(mt);
-    int end = (*rand->distsEndNode.at(start + 1))(mt);
+    int start = (*rand->distStart)(*rand->mt);
+    int end = (*rand->distsEndNode.at(start + 1))(*rand->mt);
     // clear mapping dicts
     this->mappingLhsRhs.clear();
     this->mappingRhsLhs.clear();

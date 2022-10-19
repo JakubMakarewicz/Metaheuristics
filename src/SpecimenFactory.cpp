@@ -11,16 +11,16 @@ void RandomSpecimenFactory::InitializeSpecimen(Specimen &specimen) {
     for (int i = 0; i<this->data.nodeCount; i++){
         specimen.nodeGenome.push_back(i);
     }
-    std::shuffle(specimen.nodeGenome.begin(), specimen.nodeGenome.end(), std::mt19937(std::random_device()()));
+    std::shuffle(specimen.nodeGenome.begin(), specimen.nodeGenome.end(), std::mt19937_64(std::random_device()()));
 
     this->GenerateGreedyItems(specimen);
 }
 
 void GreedySpecimenFactory::InitializeSpecimen(Specimen &specimen) {
     specimen.nodeGenome.clear();
-    std::random_device rd;
-    std::mt19937 mt(rd());
-    int start = (*rand->distStart)(mt);
+    //std::random_device rd;
+    //std::mt19937_64 mt(rd());
+    int start = (*rand->distStart)(*rand->mt);
     std::vector<bool> availableNodes;
     for (int i = 0; i<this->data.nodeCount; i++)
         availableNodes.push_back(true);
@@ -59,14 +59,14 @@ void SpecimenFactory::GenerateGreedyItems(Specimen& specimen){
         currentDistance += data.nodeAdjacencyMatrix.at(specimen.nodeGenome.at((i+1)%data.nodeCount)).at(specimen.nodeGenome.at(i));
         if (this->data.itemsAtNodeMap.find(specimen.nodeGenome.at(i)) != this->data.itemsAtNodeMap.end()){
             std::vector<Item> itemsAtNode = this->data.itemsAtNodeMap.at(specimen.nodeGenome.at(i));
-            for (auto & item : itemsAtNode){
-                itemsSorted.at(item.index).profitMargin = item.profit/(item.weight * currentDistance);
+            for (int i = 0; i< itemsAtNode.size(); i++){
+                itemsSorted.at(itemsAtNode.at(i).index).profitMargin = itemsAtNode.at(i).profit / (itemsAtNode.at(i).weight * currentDistance);
             }
         }
     }
     std::sort(itemsSorted.begin(), itemsSorted.end());
-    for (auto & i : itemsSorted){
-        specimen.PickupItem(this->data.items.at(i.index), this->data);
+    for (int i = itemsSorted.size() - 1; i >= 0; i--) {
+        specimen.PickupItem(this->data.items.at(itemsSorted.at(i).index), this->data);
     }
 }
 //

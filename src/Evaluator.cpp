@@ -22,10 +22,10 @@ std::tuple<double,double> Evaluator::GetItemsWeightAndProfitForNode(const Specim
     std::tuple<double,double> result(0,0);
     if (this->data->itemsAtNodeMap.find(node) != this->data->itemsAtNodeMap.end()){
         std::vector<Item> itemsAtNode = this->data->itemsAtNodeMap.at(node);
-        for (auto & i : itemsAtNode){
-            if (specimen.itemGenome.at(i.index)){
-                std::get<0>(result) += i.weight;
-                std::get<1>(result) += i.profit;
+        for (int i = 0;  i<itemsAtNode.size(); i++){
+            if (specimen.itemGenome.at(itemsAtNode.at(i).index)){
+                std::get<0>(result) += itemsAtNode.at(i).weight;
+                std::get<1>(result) += itemsAtNode.at(i).profit;
             }
         }
     }

@@ -7,6 +7,7 @@ void Algorithm::Run(){
         this->currentGeneration++;
 		this->RunIteration();
         this->SaveGenerationResult();
+        std::cout << this->currentGeneration << '\n';
 	}
 	this->Log();
 }
@@ -14,6 +15,10 @@ void Algorithm::Run(){
 void Algorithm::Log(){
 	std::ofstream logFile;
 	logFile.open("example.csv");
+    for (int i = 0; i < this->currentGeneration; i++) {
+        logFile << std::fixed<< this->bestSpecimens.at(i).fitness << ',' << this->worstSpecimens.at(i).fitness << ',' << this->averageScores.at(i);
+        logFile << '\n';
+    }
 	logFile.close();
 }
 
@@ -90,9 +95,12 @@ void NonGeneticAlgorithm::RunIteration() {
 void GeneticAlgorithm::RunIteration() {
     for (int i = 0; i < this->config->populationSize; i++) {
         this->selector->RunSelection(this->population);
-        for (int i = 0; i < this->population.size(); i += 2)
+        for (int i = 0; i < this->population.size(); i += 2) {
             this->crossoverer->Cross(*this->population.at(i), *this->population.at(i + 1));
-        for (int i = 0; i<this->population.size(); i++)
+            if (this->config->generateGreedyKnapsackPostCross)
+                this->specimenFactory->GenerateGreedyItems(*this->population.at(i));
+        }
+        for (int i = 0; i < this->population.size(); i++)
             this->mutator->MutateSpecimen(*this->population.at(i));
         this->evaluator->EvaluateSpecimen(*this->population.at(i));
     }

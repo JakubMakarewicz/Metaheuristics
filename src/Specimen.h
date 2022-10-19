@@ -37,7 +37,7 @@ public:
 
     bool operator>=(const Specimen &rhs) const;
 
-    void ClearKnapsack(){this->currentKnapsackWeight=0; for (auto && i : this->itemGenome)i=false;}
+    void ClearKnapsack() { this->currentKnapsackWeight = 0; for (int i = 0;i < this->itemGenome.size(); i++)this->itemGenome.at(i) = false; }
     bool PickupItem(Item& item, DataStructure& data);
 };
 
