@@ -16,12 +16,13 @@ std::vector<Specimen*> RouletteSelector::RunSelection(std::vector<Specimen*>& po
     }
 
     RandomGenerators::rouletteDist = new std::uniform_real_distribution<>(0, sum_a_i);
-
+    std::random_device rd;
+    std::mt19937 mt(rd());
 
     std::vector<Specimen*> newGeneration;
     for (int i=0; i<population.size();i++){
         //Specimen newSpecimen(population.at(fenwickTree.upper_bound(distribution(generator))));
-        newGeneration.push_back(population.at(fenwickTree.upper_bound((*RandomGenerators::rouletteDist)(RandomGenerators::mt))));
+        newGeneration.push_back(population.at(fenwickTree.upper_bound((*RandomGenerators::rouletteDist)(mt))));
     }
 
     return newGeneration;

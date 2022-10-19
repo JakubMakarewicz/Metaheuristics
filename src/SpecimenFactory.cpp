@@ -18,7 +18,9 @@ void RandomSpecimenFactory::InitializeSpecimen(Specimen &specimen) {
 
 void GreedySpecimenFactory::InitializeSpecimen(Specimen &specimen) {
     specimen.nodeGenome.clear();
-    int start = (*RandomGenerators::distStart)(RandomGenerators::mt);
+    std::random_device rd;
+    std::mt19937 mt(rd());
+    int start = (*RandomGenerators::distStart)(mt);
     std::vector<bool> availableNodes;
     for (int i = 0; i<this->data.nodeCount; i++)
         availableNodes.push_back(true);
