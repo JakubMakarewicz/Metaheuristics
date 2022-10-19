@@ -7,6 +7,7 @@
 
 #include <cstddef>
 #include "Specimen.h"
+#include "RandomGenerators.h"
 #include <unordered_map>
 
 enum CrossoverEnum{
@@ -19,13 +20,15 @@ class PMXCrossoverer;
 class Crossoverer {
 public:
     double crossoverProbability;
+    RandomGenerators* rand;
+
     virtual void Cross(Specimen& lhs, Specimen& rhs) {}
-    Crossoverer(double crossoverProbability) : crossoverProbability(crossoverProbability) {}
-    static Crossoverer* GenerateCrossoverer(std::string crossovererName, double crossoverProbability);
+    Crossoverer(double crossoverProbability, RandomGenerators& rand) : crossoverProbability(crossoverProbability), rand(&rand) {}
+    static Crossoverer* GenerateCrossoverer(std::string crossovererName, double crossoverProbability, RandomGenerators& rand);//
 };
 class PMXCrossoverer: public Crossoverer {
 public:
-    PMXCrossoverer(double crossoverProbability) : Crossoverer(crossoverProbability) {}
+    PMXCrossoverer(double crossoverProbability, RandomGenerators& rand) : Crossoverer(crossoverProbability,rand) {}
     void Cross(Specimen& lhs, Specimen& rhs) override;
 private:
     std::unordered_map<int, int> mappingLhsRhs;

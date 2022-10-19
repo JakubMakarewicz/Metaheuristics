@@ -7,7 +7,7 @@
 
 
 class Item {
-public:
+public://
     int index;
     double profit;
     double weight;

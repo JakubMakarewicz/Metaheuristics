@@ -20,7 +20,7 @@ void GreedySpecimenFactory::InitializeSpecimen(Specimen &specimen) {
     specimen.nodeGenome.clear();
     std::random_device rd;
     std::mt19937 mt(rd());
-    int start = (*RandomGenerators::distStart)(mt);
+    int start = (*rand->distStart)(mt);
     std::vector<bool> availableNodes;
     for (int i = 0; i<this->data.nodeCount; i++)
         availableNodes.push_back(true);
@@ -69,13 +69,13 @@ void SpecimenFactory::GenerateGreedyItems(Specimen& specimen){
         specimen.PickupItem(this->data.items.at(i.index), this->data);
     }
 }
-
-SpecimenFactory* SpecimenFactory::GenerateSpecimenFactory(std::string specimenFactoryName, DataStructure& data)
+//
+SpecimenFactory* SpecimenFactory::GenerateSpecimenFactory(std::string specimenFactoryName, DataStructure& data, RandomGenerators& rand)
 {
     if (specimenFactoryName == "RANDOM") {
-        return new RandomSpecimenFactory(data);
+        return new RandomSpecimenFactory(data,rand);
     }
     else if (specimenFactoryName == "GREEDY") {
-        return new GreedySpecimenFactory(data);
+        return new GreedySpecimenFactory(data,rand);
     }
 }

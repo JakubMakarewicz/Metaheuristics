@@ -15,19 +15,19 @@ std::vector<Specimen*> RouletteSelector::RunSelection(std::vector<Specimen*>& po
         sum_a_i += (i->normalizedFitness) / sum;
     }
 
-    RandomGenerators::rouletteDist = new std::uniform_real_distribution<>(0, sum_a_i);
+    rand->rouletteDist = new std::uniform_real_distribution<>(0, sum_a_i);
     std::random_device rd;
     std::mt19937 mt(rd());
 
     std::vector<Specimen*> newGeneration;
     for (int i=0; i<population.size();i++){
         //Specimen newSpecimen(population.at(fenwickTree.upper_bound(distribution(generator))));
-        newGeneration.push_back(population.at(fenwickTree.upper_bound((*RandomGenerators::rouletteDist)(mt))));
+        newGeneration.push_back(population.at(fenwickTree.upper_bound((*(rand->RandomGenerators::rouletteDist))(mt))));
     }
 
     return newGeneration;
 }
-
+//o
 double RouletteSelector::NormalizeFitness(std::vector<Specimen*> &population) {
     double minFitness=std::numeric_limits<double>::infinity();
     double sum=0.0;
@@ -46,6 +46,8 @@ double RouletteSelector::NormalizeFitness(std::vector<Specimen*> &population) {
     }
     return sum;
 }
+
+RouletteSelector::RouletteSelector(RandomGenerators &rand) : Selector(rand) {}
 
 std::vector<Specimen*> TournamentSelector::RunSelection(std::vector<Specimen*>& population){   
     std::vector<Specimen*> newGeneration;
@@ -75,12 +77,14 @@ Specimen* TournamentSelector::RunSingleTournament(std::vector<Specimen*>& popula
     return population.at(bestIndex);
 }
 
-Selector* Selector::GenerateSelector(std::string selectorName, int tournamentSize)
+Selector* Selector::GenerateSelector(std::string selectorName, int tournamentSize, RandomGenerators& rand)
 {
     if (selectorName == "ROULETTE") {
-        return new RouletteSelector;
+        return new RouletteSelector(rand);
     }
     else if (selectorName == "TOURNAMENT") {
-        return new TournamentSelector(tournamentSize);
+        return new TournamentSelector(rand, tournamentSize);
     }
 }
+
+Selector::Selector(RandomGenerators& rand) : rand(&rand) {}

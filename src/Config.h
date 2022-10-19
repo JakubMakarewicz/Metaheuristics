@@ -7,7 +7,7 @@ public:
 	double itemMutationProbability;
 	bool mutateKnapsack;
 	bool generateGreedyKnapsackPostCross;
-	int populationSize;
+	int populationSize;//
 	int generationsCount;
 	int tournamentBatchSize;
 	std::string selector;

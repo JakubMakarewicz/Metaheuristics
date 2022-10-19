@@ -2,15 +2,16 @@
 #include "DataLoader.h"
 #include "Specimen.h"
 #include "Algorithm.h"
-#include <RandomGenerators.h>
+#include "RandomGenerators.h"
 
-int main() {
+int main() {//
     DataLoader dataLoader;
     dataLoader.loadConfig("C:\\Users\\makaron\\source\\repos\\JakubMakarewicz\\Metaheuristics\\configs\\config1.txt");
     dataLoader.loadData(dataLoader.config.dataFilePath);
-    RandomGenerators::Init(dataLoader.data);
+    RandomGenerators rand;
+    rand.Init(dataLoader.data);
     //NonGeneticAlgorithm* algorithm = new NonGeneticAlgorithm(dataLoader.config, dataLoader.data);
-    Algorithm* algorithm = Algorithm::GenerateAlgorithm(dataLoader.config, dataLoader.data);
+    Algorithm* algorithm = Algorithm::GenerateAlgorithm(dataLoader.config, dataLoader.data, rand);
     algorithm->Run();
     int i =0;
 

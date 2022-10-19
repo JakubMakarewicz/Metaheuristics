@@ -9,12 +9,12 @@
 void PMXCrossoverer::Cross(Specimen& lhs, Specimen& rhs) {
     std::random_device rd;
     std::mt19937 mt(rd());
-    if ((*RandomGenerators::distChance)(mt) > this->crossoverProbability) {
+    if ((*rand->distChance)(mt) > this->crossoverProbability) {
         return; 
     }
     // select start, end
-    int start = (*RandomGenerators::distStart)(mt);
-    int end = (*RandomGenerators::distsEndNode.at(start + 1))(mt);
+    int start = (*rand->distStart)(mt);
+    int end = (*rand->distsEndNode.at(start + 1))(mt);
     // clear mapping dicts
     this->mappingLhsRhs.clear();
     this->mappingRhsLhs.clear();
@@ -58,9 +58,11 @@ void PMXCrossoverer::Cross(Specimen& lhs, Specimen& rhs) {
     // rl
 }
 
-Crossoverer* Crossoverer::GenerateCrossoverer(std::string crossovererName, double crossoverProbability)
+Crossoverer* Crossoverer::GenerateCrossoverer(std::string crossovererName, double crossoverProbability, RandomGenerators& rand)
 {
     if (crossovererName == "PMX") {
-        return new PMXCrossoverer(crossoverProbability);
+        return new PMXCrossoverer(crossoverProbability, rand);
     }
 }
+
+

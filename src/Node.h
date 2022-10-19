@@ -4,7 +4,7 @@
 
 #ifndef METAHEURISTICS_NODE_H
 #define METAHEURISTICS_NODE_H
-
+//
 
 class Node {
 public:

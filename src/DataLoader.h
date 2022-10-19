@@ -10,7 +10,7 @@
 #include "Config.h"
 
 class DataLoader {
-public:
+public://
     DataStructure data;
     Config config;
     bool loadData(const std::string& filePath);

@@ -10,7 +10,7 @@ Specimen::Specimen(int n, int i) {
     for (int j=0;j<i;j++)
         this->itemGenome.push_back(false);
 }
-
+//
 void Specimen::Randomize() {
     std::iota(this->nodeGenome.begin(), this->nodeGenome.end(), 0);
     std::shuffle(this->nodeGenome.begin(), this->nodeGenome.end(), std::mt19937(std::random_device()()));

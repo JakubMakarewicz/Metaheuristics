@@ -14,7 +14,7 @@
 class DataStructure {
 public:
     std::string problemName;
-    std::string knapsackDataType;
+    std::string knapsackDataType;//
     int nodeCount;
     int itemsCount;
     int knapsackCapacity;

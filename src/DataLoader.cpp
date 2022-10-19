@@ -53,7 +53,7 @@ bool DataLoader::loadData(const std::string& filePath) {
                 this->data.itemsAtNodeMap.at(item.node).push_back(item);
             }
             else {
-                this->data.itemsAtNodeMap.insert({item.node, std::vector<Item>{item}});
+                this->data.itemsAtNodeMap.insert({item.node, std::vector<Item>{item}});//
             }
         }
 

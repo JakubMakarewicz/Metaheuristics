@@ -1,4 +1,5 @@
 #include "Algorithm.h"
+#include "RandomGenerators.h"
 
 void Algorithm::Run(){
 	this->Initialize();
@@ -56,25 +57,25 @@ void Algorithm::SaveGenerationResult() {
     this->averageScores.push_back(sum/this->config->populationSize);
 }
 
-Algorithm::Algorithm(Config& config, DataStructure& data)
+Algorithm::Algorithm(Config& config, DataStructure& data, RandomGenerators& rand)
 {
     this->config = &config;
     this->data = &data;
-    this->crossoverer = Crossoverer::GenerateCrossoverer(config.crossoverer, config.crossoverProbability);
-    this->mutator = Mutator::GenerateMutator(config.mutator, config.nodeMutationProbability, config.itemMutationProbability, config.mutateKnapsack);
-    this->selector = Selector::GenerateSelector(config.selector, config.tournamentBatchSize);
-    this->specimenFactory = SpecimenFactory::GenerateSpecimenFactory(config.factory, *this->data);
+    this->crossoverer = Crossoverer::GenerateCrossoverer(config.crossoverer, config.crossoverProbability, rand);
+    this->mutator = Mutator::GenerateMutator(config.mutator, config.nodeMutationProbability, config.itemMutationProbability, config.mutateKnapsack, rand);
+    this->selector = Selector::GenerateSelector(config.selector, config.tournamentBatchSize, rand);
+    this->specimenFactory = SpecimenFactory::GenerateSpecimenFactory(config.factory, *this->data, rand);
     this->evaluator = new Evaluator(*this->data);
     this->currentGeneration = 0;
 }
 
-Algorithm* Algorithm::GenerateAlgorithm(Config& config, DataStructure& data){
+Algorithm* Algorithm::GenerateAlgorithm(Config& config, DataStructure& data, RandomGenerators& rand){
     if (config.algorithm == "NON_GENETIC"){
-        NonGeneticAlgorithm* algorithm = new NonGeneticAlgorithm{config, data};
+        NonGeneticAlgorithm* algorithm = new NonGeneticAlgorithm{config, data,rand};
         return algorithm;
     }
     else if (config.algorithm == "GENETIC") {
-        GeneticAlgorithm* algorithm = new GeneticAlgorithm{ config, data };
+        GeneticAlgorithm* algorithm = new GeneticAlgorithm{ config, data,rand};
         return algorithm;
     }
 }

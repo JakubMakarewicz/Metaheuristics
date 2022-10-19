@@ -4,7 +4,7 @@
 
 #include "Node.h"
 #include<cmath>
-
+//
 double Node::getDistance(const Node& other) {
     double xDist = pow((this->x - other.x),2);
     double yDist = pow((this->y - other.y),2);

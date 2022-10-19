@@ -8,6 +8,8 @@
 #include "Selector.h"
 #include "Config.h"
 #include "DataLoader.h"
+#include "RandomGenerators.h"
+
 class Algorithm {
 public: 
 	Crossoverer* crossoverer;
@@ -25,9 +27,9 @@ public:
 
     int currentGeneration;
 
-	Algorithm(Config& config, DataStructure& data);
+	Algorithm(Config& config, DataStructure& data, RandomGenerators& rand);
 
-    static Algorithm* GenerateAlgorithm(Config& config, DataStructure& data);
+    static Algorithm* GenerateAlgorithm(Config& config, DataStructure& data, RandomGenerators& rand);
 
     void Run();
 protected:
@@ -40,14 +42,14 @@ protected:
 
 class NonGeneticAlgorithm: public Algorithm{
 public:
-    NonGeneticAlgorithm(Config& config, DataStructure& data): Algorithm(config, data){}
+    NonGeneticAlgorithm(Config& config, DataStructure& data, RandomGenerators& rand): Algorithm(config, data,rand){}
 protected:
 	void RunIteration() override;
 };
 
 class GeneticAlgorithm : public Algorithm {
 public:
-	GeneticAlgorithm(Config& config, DataStructure& data) : Algorithm(config, data) {}
+	GeneticAlgorithm(Config& config, DataStructure& data, RandomGenerators& rand) : Algorithm(config, data,rand) {}
 protected:
 	void RunIteration() override;
 };

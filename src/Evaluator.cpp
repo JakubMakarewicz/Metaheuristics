@@ -10,9 +10,9 @@ double Evaluator::EvaluateSpecimen(Specimen &specimen) {
     for (int i=0; i<specimen.nodeGenome.size();i++){
         std::tuple<double,double> nodeWeightAndProfit = this->GetItemsWeightAndProfitForNode(specimen, specimen.nodeGenome.at(i));
         currentWeight += std::get<0>(nodeWeightAndProfit);
-        knapsackValue += std::get<1>(nodeWeightAndProfit);
-        double distance = this->data.nodes.at(specimen.nodeGenome.at(i)).getDistance(data.nodes.at(specimen.nodeGenome.at((i+1)%specimen.nodeGenome.size())));
-        tspCost += distance/(this->data.maxSpeed - currentWeight*this->data.velocityConst);
+        knapsackValue += std::get<1>(nodeWeightAndProfit);//
+        double distance = this->data->nodes.at(specimen.nodeGenome.at(i)).getDistance(data->nodes.at(specimen.nodeGenome.at((i+1)%specimen.nodeGenome.size())));
+        tspCost += distance/(this->data->maxSpeed - currentWeight*this->data->velocityConst);
     }
     specimen.fitness = knapsackValue - tspCost;
     return knapsackValue - tspCost;
@@ -20,8 +20,8 @@ double Evaluator::EvaluateSpecimen(Specimen &specimen) {
 
 std::tuple<double,double> Evaluator::GetItemsWeightAndProfitForNode(const Specimen &specimen, int node) {
     std::tuple<double,double> result(0,0);
-    if (this->data.itemsAtNodeMap.find(node) != this->data.itemsAtNodeMap.end()){
-        std::vector<Item> itemsAtNode = this->data.itemsAtNodeMap.at(node);
+    if (this->data->itemsAtNodeMap.find(node) != this->data->itemsAtNodeMap.end()){
+        std::vector<Item> itemsAtNode = this->data->itemsAtNodeMap.at(node);
         for (auto & i : itemsAtNode){
             if (specimen.itemGenome.at(i.index)){
                 std::get<0>(result) += i.weight;

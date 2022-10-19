@@ -13,7 +13,7 @@
 #include <random>
 #include "Item.h"
 #include "DataStructure.h"
-
+//
 class Specimen {
 public:
     std::vector<int32_t> nodeGenome;
