@@ -7,6 +7,7 @@
 
 #include <cstddef>
 #include "Specimen.h"
+#include <unordered_map>
 
 enum CrossoverEnum{
     DEFAULT
@@ -18,8 +19,6 @@ class PMXCrossoverer;
 class Crossoverer {
 public:
     double crossoverProbability;
-    std::mt19937 mt{ std::random_device()() };
-    std::uniform_real_distribution<> distChance{ 0, 1 };
     virtual void Cross(Specimen& lhs, Specimen& rhs) {}
     Crossoverer(double crossoverProbability) : crossoverProbability(crossoverProbability) {}
     static Crossoverer* GenerateCrossoverer(std::string crossovererName, double crossoverProbability);
@@ -28,6 +27,9 @@ class PMXCrossoverer: public Crossoverer {
 public:
     PMXCrossoverer(double crossoverProbability) : Crossoverer(crossoverProbability) {}
     void Cross(Specimen& lhs, Specimen& rhs) override;
+private:
+    std::unordered_map<int, int> mappingLhsRhs;
+    std::unordered_map<int, int> mappingRhsLhs;
 };
 
 #endif //METAHEURISTICS_CROSSOVERER_H

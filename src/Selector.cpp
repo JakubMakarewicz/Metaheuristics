@@ -3,22 +3,25 @@
 //
 
 #include "Selector.h"
+#include "RandomGenerators.h"
 std::vector<Specimen*> RouletteSelector::RunSelection(std::vector<Specimen*>& population) {
     Fenwick_tree<double> fenwickTree{};
     double sum;
 
     sum = this->NormalizeFitness(population);
-
+    double sum_a_i = 0;
     for(auto & i : population){
         fenwickTree.push((i->normalizedFitness)/sum);
+        sum_a_i += (i->normalizedFitness) / sum;
     }
 
-    std::default_random_engine generator;
-    std::uniform_real_distribution distribution;
+    RandomGenerators::rouletteDist = new std::uniform_real_distribution<>(0, sum_a_i);
+
+
     std::vector<Specimen*> newGeneration;
     for (int i=0; i<population.size();i++){
         //Specimen newSpecimen(population.at(fenwickTree.upper_bound(distribution(generator))));
-        newGeneration.push_back(population.at(fenwickTree.upper_bound(distribution(generator))));
+        newGeneration.push_back(population.at(fenwickTree.upper_bound((*RandomGenerators::rouletteDist)(RandomGenerators::mt))));
     }
 
     return newGeneration;
@@ -31,12 +34,14 @@ double RouletteSelector::NormalizeFitness(std::vector<Specimen*> &population) {
         if (i->fitness < minFitness)
             minFitness = i->fitness;
     }
-    if (minFitness<0){
-        minFitness *=-1;
-        for (auto & i : population){
+    if (minFitness < 0) {
+        minFitness *= -1;
+    }
+    for (auto & i : population){
+        if (minFitness < 0)
             i->normalizedFitness = i->fitness + minFitness;
-            sum+=i->normalizedFitness;
-        }
+        else i->normalizedFitness = i->fitness - minFitness;
+        sum += i->normalizedFitness;
     }
     return sum;
 }
@@ -50,7 +55,7 @@ std::vector<Specimen*> TournamentSelector::RunSelection(std::vector<Specimen*>& 
             population.end(),
             std::back_inserter(tournamentSpecimens),
             this->tournamentSize,
-            std::mt19937( std::random_device()() )
+            RandomGenerators::tournamentEngine
         );
         newGeneration.push_back(this->RunSingleTournament(tournamentSpecimens));
     }

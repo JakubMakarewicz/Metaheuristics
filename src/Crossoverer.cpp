@@ -4,19 +4,18 @@
 
 #include "Crossoverer.h"
 #include <unordered_map>
+#include "RandomGenerators.h"
 
 void PMXCrossoverer::Cross(Specimen& lhs, Specimen& rhs) {
-    if (this->distChance(mt) > this->crossoverProbability) { return; }
+    if ((*RandomGenerators::distChance)(RandomGenerators::mt) > this->crossoverProbability) {
+        return; 
+    }
     // select start, end
-    std::random_device rd;
-    std::mt19937 mt(rd());
-    std::uniform_int_distribution<> distStart(0, lhs.nodeGenome.size()-2);
-    int start = distStart(mt);
-    std::uniform_int_distribution<> distEnd(start+1, lhs.nodeGenome.size()-1);
-    int end = distEnd(mt);
-    // create mapping dicts
-    std::unordered_map<int, int> mappingLhsRhs;
-    std::unordered_map<int, int> mappingRhsLhs;
+    int start = (*RandomGenerators::distStart)(RandomGenerators::mt);
+    int end = (*RandomGenerators::distsEndNode.at(start + 1))(RandomGenerators::mt);
+    // clear mapping dicts
+    this->mappingLhsRhs.clear();
+    this->mappingRhsLhs.clear();
     for (int i = start; i<=end; i++){
         bool lhsrhsHasKey = !(mappingLhsRhs.find(lhs.nodeGenome.at(i)) == mappingLhsRhs.end());
         bool rhslhsHasKey = !(mappingRhsLhs.find(rhs.nodeGenome.at(i)) == mappingRhsLhs.end());

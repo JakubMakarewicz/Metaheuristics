@@ -5,28 +5,26 @@
 #include "SpecimenFactory.h"
 #include<cstdlib>
 #include <random>
+#include "RandomGenerators.h"
 void RandomSpecimenFactory::InitializeSpecimen(Specimen &specimen) {
     specimen.nodeGenome.clear();
     for (int i = 0; i<this->data.nodeCount; i++){
         specimen.nodeGenome.push_back(i);
     }
-    std::shuffle(specimen.nodeGenome.begin(), specimen.nodeGenome.end(), std::mt19937(std::random_device()()));
+    std::shuffle(specimen.nodeGenome.begin(), specimen.nodeGenome.end(), RandomGenerators::tournamentEngine);
 
     this->GenerateGreedyItems(specimen);
 }
 
 void GreedySpecimenFactory::InitializeSpecimen(Specimen &specimen) {
     specimen.nodeGenome.clear();
-    std::random_device rd;
-    std::mt19937 mt(rd());
-    std::uniform_int_distribution<> start(0, this->data.nodeCount-1);
-    int s = start(mt);
+    int start = (*RandomGenerators::distStart)(RandomGenerators::mt);
     std::vector<bool> availableNodes;
     for (int i = 0; i<this->data.nodeCount; i++)
         availableNodes.push_back(true);
 
-    specimen.nodeGenome.push_back(s);
-    availableNodes.at(s).flip();
+    specimen.nodeGenome.push_back(start);
+    availableNodes.at(start).flip();
     while (specimen.nodeGenome.size()<this->data.nodeCount){
         int next = this->GetClosest(specimen.nodeGenome.back(), availableNodes);
         specimen.nodeGenome.push_back(next);

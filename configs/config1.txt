@@ -11,4 +11,4 @@ crossoverer;PMX
 mutator;SWAP
 factory;RANDOM
 dataFilePath;C:\\Users\\makaron\\CLionProjects\\Metaheuristics\\data\\trivial_1.ttp
-algorithm;NON_GENETIC
+algorithm;GENETIC

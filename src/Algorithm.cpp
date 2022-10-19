@@ -90,7 +90,9 @@ void GeneticAlgorithm::RunIteration() {
     for (int i = 0; i < this->config->populationSize; i++) {
         this->selector->RunSelection(this->population);
         for (int i = 0; i < this->population.size(); i += 2)
-            this->crossoverer->Cross(this->population.at(i), this->population.at(i + 1));// TODO
+            this->crossoverer->Cross(*this->population.at(i), *this->population.at(i + 1));
+        for (int i = 0; i<this->population.size(); i++)
+            this->mutator->MutateSpecimen(*this->population.at(i));
         this->evaluator->EvaluateSpecimen(*this->population.at(i));
     }
 }

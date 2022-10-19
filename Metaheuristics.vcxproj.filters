@@ -1,6 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <ClCompile Include="C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\src\Algorithm.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\src\Crossoverer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -28,17 +31,27 @@
     <ClCompile Include="C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\src\Specimen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\src\SpecimenFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\src\Algorithm.cpp">
+    <ClCompile Include="C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\utils\bitwise.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\utils\fenwick_tree.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\RandomGenerators.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\src\Algorithm.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\src\Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\src\Crossoverer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -69,12 +82,13 @@
     <ClInclude Include="C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\src\SpecimenFactory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\src\Algorithm.h">
+    <ClInclude Include="C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\utils\bitwise.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\src\Config.h">
+    <ClInclude Include="C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\utils\fenwick_tree.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\RandomGenerators.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\CMakeLists.txt" />
