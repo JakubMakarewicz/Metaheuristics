@@ -4,7 +4,7 @@
 
 #include "Selector.h"
 #include "RandomGenerators.h"
-std::vector<Specimen*> RouletteSelector::RunSelection(std::vector<Specimen*>& population) {
+std::vector<Specimen*>* RouletteSelector::RunSelection(std::vector<Specimen*>& population) {
     Fenwick_tree<double> fenwickTree{};
     double sum;
 
@@ -19,12 +19,18 @@ std::vector<Specimen*> RouletteSelector::RunSelection(std::vector<Specimen*>& po
     //std::random_device rd;
     //std::mt19937_64 mt(rd());
 
-    std::vector<Specimen*> newGeneration;
+    auto* newGeneration=new std::vector<Specimen*>();
     for (int i=0; i<population.size();i++){
         //Specimen newSpecimen(population.at(fenwickTree.upper_bound(distribution(generator))));
-        newGeneration.push_back(population.at(fenwickTree.upper_bound((*(rand->RandomGenerators::rouletteDist))(*rand->mt))));
-    }
+        int index = fenwickTree.upper_bound((*(rand->RandomGenerators::rouletteDist))(*rand->mt));
+        if (index == population.size())
+            index -=1; //TODO:XD!
+        newGeneration->push_back(new Specimen(*population.at(index)));
 
+    }
+//    for (int i = 0; i<population.size();i++){
+//        delete population.at(i);
+//    }
     return newGeneration;
 }
 //o
@@ -51,8 +57,8 @@ double RouletteSelector::NormalizeFitness(std::vector<Specimen*> &population) {
 
 RouletteSelector::RouletteSelector(RandomGenerators &rand) : Selector(rand) {}
 
-std::vector<Specimen*> TournamentSelector::RunSelection(std::vector<Specimen*>& population){   
-    std::vector<Specimen*> newGeneration;
+std::vector<Specimen*>* TournamentSelector::RunSelection(std::vector<Specimen*>& population){
+    auto* newGeneration = new std::vector<Specimen*>();
     for (int i = 0;i < population.size(); i++) {
         std::vector<Specimen*> tournamentSpecimens;
         std::sample(
@@ -62,7 +68,9 @@ std::vector<Specimen*> TournamentSelector::RunSelection(std::vector<Specimen*>& 
             this->tournamentSize,
             std::mt19937(std::random_device()())
         );
-        newGeneration.push_back(this->RunSingleTournament(tournamentSpecimens));
+        newGeneration->push_back(new Specimen((*this->RunSingleTournament(tournamentSpecimens))));
+
+//        newGeneration->push_back(this->RunSingleTournament(tournamentSpecimens));
     }
     return newGeneration;
 }

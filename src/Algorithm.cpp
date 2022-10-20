@@ -5,8 +5,11 @@ void Algorithm::Run(){
 	this->Initialize();
 	while (this->CanRun()) {
         this->currentGeneration++;
+
 		this->RunIteration();
+
         this->SaveGenerationResult();
+
         std::cout << this->currentGeneration << '\n';
 	}
 	this->Log();
@@ -14,7 +17,7 @@ void Algorithm::Run(){
 
 void Algorithm::Log(){
 	std::ofstream logFile;
-	logFile.open("example.csv");
+	logFile.open("/home/kuba/Source/Metaheuristics/example.csv");
     for (int i = 0; i < this->currentGeneration; i++) {
         logFile << std::fixed<< this->bestSpecimens.at(i).fitness << ',' << this->worstSpecimens.at(i).fitness << ',' << this->averageScores.at(i);
         logFile << '\n';
@@ -24,13 +27,14 @@ void Algorithm::Log(){
 
 void Algorithm::Initialize()
 {
-    this->population.clear();
+    this->population = new std::vector<Specimen*>();
+//    this->population.clear();
     this->currentGeneration = 0;
     for (int i = 0; i < this->config->populationSize; i++) {
         Specimen* s = new Specimen();
         this->specimenFactory->InitializeSpecimen(*s);
         this->evaluator->EvaluateSpecimen(*s);
-        this->population.push_back(s);
+        this->population->push_back(s);
     }
 }
 
@@ -45,8 +49,8 @@ void Algorithm::SaveGenerationResult() {
     double bestScore = INT_MIN;
     int bestIndex=0;
     double sum=0;
-    for (int i =0; i<this->config->populationSize; i++){
-        Specimen* specimen = this->population.at(i);
+    for (int i =0; i<this->population->size(); i++){
+        Specimen* specimen = this->population->at(i);
         sum+=specimen->fitness;
         if (specimen->fitness > bestScore) {
             bestScore = specimen->fitness;
@@ -57,8 +61,8 @@ void Algorithm::SaveGenerationResult() {
             worstIndex = i;
         }
     }
-    this->bestSpecimens.push_back(*this->population.at(bestIndex));
-    this->worstSpecimens.push_back(*this->population.at(worstIndex));
+    this->bestSpecimens.push_back(*this->population->at(bestIndex));
+    this->worstSpecimens.push_back(*this->population->at(worstIndex));
     this->averageScores.push_back(sum/this->config->populationSize);
 }
 
@@ -87,21 +91,25 @@ Algorithm* Algorithm::GenerateAlgorithm(Config& config, DataStructure& data, Ran
 
 void NonGeneticAlgorithm::RunIteration() {
     for (int i = 0; i<this->config->populationSize; i++){
-        this->specimenFactory->InitializeSpecimen(*this->population.at(i));
-        this->evaluator->EvaluateSpecimen(*this->population.at(i));
+        this->specimenFactory->InitializeSpecimen(*this->population->at(i));
+        this->evaluator->EvaluateSpecimen(*this->population->at(i));
     }
 }
 
 void GeneticAlgorithm::RunIteration() {
-    for (int i = 0; i < this->config->populationSize; i++) {
-        this->selector->RunSelection(this->population);
-        for (int i = 0; i < this->population.size(); i += 2) {
-            this->crossoverer->Cross(*this->population.at(i), *this->population.at(i + 1));
-            if (this->config->generateGreedyKnapsackPostCross)
-                this->specimenFactory->GenerateGreedyItems(*this->population.at(i));
+//    for (int i = 0; i < this->config->populationSize; i++) {
+        this->population = this->selector->RunSelection(*this->population);
+        for (int i = 0; i < this->population->size(); i += 2) {
+            this->crossoverer->Cross(*this->population->at(i), *this->population->at(i));
         }
-        for (int i = 0; i < this->population.size(); i++)
-            this->mutator->MutateSpecimen(*this->population.at(i));
-        this->evaluator->EvaluateSpecimen(*this->population.at(i));
-    }
+        for (int i = 0; i < this->population->size(); i++) {
+            this->mutator->MutateSpecimen(*this->population->at(i));
+            if (this->config->generateGreedyKnapsackPostCross)
+                this->specimenFactory->GenerateGreedyItems(*this->population->at(i));
+            if (this->config->mutateKnapsack)
+                this->mutator->MutateKnapsack(*this->population->at(i));
+            this->evaluator->EvaluateSpecimen(*this->population->at(i));
+        }
+
+//    }
 }

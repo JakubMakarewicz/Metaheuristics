@@ -9,7 +9,7 @@ void Mutator::MutateKnapsack(Specimen& specimen){
 	//std::random_device rd;
 	//std::mt19937_64 mt(rd());
 	for (int i = 0; i < specimen.itemGenome.size();i++) {
-        if (i) {
+        if (specimen.itemGenome.at(i)) {
             double chance = (*rand->distChance)(*rand->mt);
             if (chance < this->itemMutationProbability) {
 				specimen.itemGenome.at(i).flip();
@@ -32,6 +32,7 @@ Mutator* Mutator::GenerateMutator(std::string mutatorName, double nodeMutationPr
 void SwapMutator::MutateSpecimen(Specimen& specimen){
 	//std::random_device rd;
 	//std::mt19937_64 mt(rd());
+//    if (this->mutateKnapsack) this->MutateKnapsack(specimen);
 	for (int i = 0; i < specimen.nodeGenome.size(); i++) {
 		double chance = (*rand->distChance)(*rand->mt);
 		if (chance < this->nodeMutationProbability) {
@@ -47,11 +48,12 @@ void InverseMutator::MutateSpecimen(Specimen& specimen)
 {
     //std::random_device rd;
     //std::mt19937_64 mt(rd());
+//    if (this->mutateKnapsack) this->MutateKnapsack(specimen);
 	double chance = (*rand->distChance)(*rand->mt);
 	if (chance < this->nodeMutationProbability) {
 		int start = (*rand->distStart)(*rand->mt);
 		int end = (*rand->distsEndNode.at(start+1))(*rand->mt);
 
-		std::reverse(specimen.nodeGenome.begin()+start, specimen.nodeGenome.end() + end + 1);
+		std::reverse(specimen.nodeGenome.begin()+start, specimen.nodeGenome.begin() + end + 1);
 	}
 }
