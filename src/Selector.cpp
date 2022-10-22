@@ -4,7 +4,7 @@
 
 #include "Selector.h"
 #include "RandomGenerators.h"
-std::vector<Specimen*>* RouletteSelector::RunSelection(std::vector<Specimen*>& population) {
+std::unique_ptr<std::vector<Specimen*>> RouletteSelector::RunSelection(std::vector<Specimen*>& population) {
     Fenwick_tree<double> fenwickTree{};
     double sum;
 
@@ -19,7 +19,7 @@ std::vector<Specimen*>* RouletteSelector::RunSelection(std::vector<Specimen*>& p
     //std::random_device rd;
     //std::mt19937_64 mt(rd());
 
-    auto* newGeneration=new std::vector<Specimen*>();
+    auto newGeneration=std::make_unique<std::vector<Specimen*>>();
     for (int i=0; i<population.size();i++){
         //Specimen newSpecimen(population.at(fenwickTree.upper_bound(distribution(generator))));
         int index = fenwickTree.upper_bound((*(rand->RandomGenerators::rouletteDist))(*rand->mt));
@@ -28,9 +28,9 @@ std::vector<Specimen*>* RouletteSelector::RunSelection(std::vector<Specimen*>& p
         newGeneration->push_back(new Specimen(*population.at(index)));
 
     }
-//    for (int i = 0; i<population.size();i++){
-//        delete population.at(i);
-//    }
+    for (int i = 0; i < population.size();i++) {
+        delete population.at(i);
+    }
     return newGeneration;
 }
 //o
@@ -57,8 +57,8 @@ double RouletteSelector::NormalizeFitness(std::vector<Specimen*> &population) {
 
 RouletteSelector::RouletteSelector(RandomGenerators &rand) : Selector(rand) {}
 
-std::vector<Specimen*>* TournamentSelector::RunSelection(std::vector<Specimen*>& population){
-    auto* newGeneration = new std::vector<Specimen*>();
+std::unique_ptr<std::vector<Specimen*>> TournamentSelector::RunSelection(std::vector<Specimen*>& population){
+    auto newGeneration = std::make_unique<std::vector<Specimen*>>();
     for (int i = 0;i < population.size(); i++) {
         std::vector<Specimen*> tournamentSpecimens;
         std::sample(
@@ -69,8 +69,11 @@ std::vector<Specimen*>* TournamentSelector::RunSelection(std::vector<Specimen*>&
             std::mt19937(std::random_device()())
         );
         newGeneration->push_back(new Specimen((*this->RunSingleTournament(tournamentSpecimens))));
-
+        
 //        newGeneration->push_back(this->RunSingleTournament(tournamentSpecimens));
+    }
+    for (int i = 0; i < population.size();i++) {
+        delete population.at(i);
     }
     return newGeneration;
 }

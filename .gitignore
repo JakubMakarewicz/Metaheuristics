@@ -4,3 +4,12 @@
 
 /.vs
 cmake-*
+out
+CMakeFiles
+ALL_BUILD*
+*sln
+*vcxproj*
+*.dir
+Debug
+Release
+CMakeCache*

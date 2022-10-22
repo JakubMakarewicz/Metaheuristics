@@ -3,13 +3,26 @@
 
 void Algorithm::Run(){
 	this->Initialize();
+    this->SaveGenerationResult();
+
 	while (this->CanRun()) {
         this->currentGeneration++;
 
 		this->RunIteration();
 
         this->SaveGenerationResult();
-
+        bool foundDupes = false;
+        for (int i = 0; i < this->population->size(); i++) {
+            std::vector<int> s;
+            for (int j = 0; j < this->population->at(i)->nodeGenome.size(); j++) {
+                if (std::find(s.begin(), s.end(), this->population->at(i)->nodeGenome.at(j)) != s.end()){
+                    bool foundDupes = true;
+                }
+                if (foundDupes)
+                    std::cout << "fuck yall";
+                s.push_back(this->population->at(i)->nodeGenome.at(j));
+            }
+        }
         std::cout << this->currentGeneration << '\n';
 	}
 	this->Log();
@@ -17,7 +30,7 @@ void Algorithm::Run(){
 
 void Algorithm::Log(){
 	std::ofstream logFile;
-	logFile.open("/home/kuba/Source/Metaheuristics/example.csv");
+	logFile.open(".\\example.csv");
     for (int i = 0; i < this->currentGeneration; i++) {
         logFile << std::fixed<< this->bestSpecimens.at(i).fitness << ',' << this->worstSpecimens.at(i).fitness << ',' << this->averageScores.at(i);
         logFile << '\n';
@@ -27,7 +40,7 @@ void Algorithm::Log(){
 
 void Algorithm::Initialize()
 {
-    this->population = new std::vector<Specimen*>();
+    this->population = std::make_unique<std::vector<Specimen*>>();
 //    this->population.clear();
     this->currentGeneration = 0;
     for (int i = 0; i < this->config->populationSize; i++) {
@@ -98,18 +111,18 @@ void NonGeneticAlgorithm::RunIteration() {
 
 void GeneticAlgorithm::RunIteration() {
 //    for (int i = 0; i < this->config->populationSize; i++) {
-        this->population = this->selector->RunSelection(*this->population);
-        for (int i = 0; i < this->population->size(); i += 2) {
-            this->crossoverer->Cross(*this->population->at(i), *this->population->at(i));
-        }
-        for (int i = 0; i < this->population->size(); i++) {
-            this->mutator->MutateSpecimen(*this->population->at(i));
-            if (this->config->generateGreedyKnapsackPostCross)
-                this->specimenFactory->GenerateGreedyItems(*this->population->at(i));
-            if (this->config->mutateKnapsack)
-                this->mutator->MutateKnapsack(*this->population->at(i));
-            this->evaluator->EvaluateSpecimen(*this->population->at(i));
-        }
+    this->population = this->selector->RunSelection(*this->population);
+    for (int i = 0; i < this->population->size(); i += 2) {
+        this->crossoverer->Cross(*this->population->at(i), *this->population->at(i));
+    }
+    for (int i = 0; i < this->population->size(); i++) {
+        this->mutator->MutateSpecimen(*this->population->at(i));
+        if (this->config->generateGreedyKnapsackPostCross)
+            this->specimenFactory->GenerateGreedyItems(*this->population->at(i));
+        if (this->config->mutateKnapsack)
+            this->mutator->MutateKnapsack(*this->population->at(i));
+        this->evaluator->EvaluateSpecimen(*this->population->at(i));
+    }
 
 //    }
 }

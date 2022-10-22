@@ -20,7 +20,7 @@ public:
 	Config* config;
     Evaluator* evaluator;
 
-    std::vector<Specimen*>* population;
+	std::unique_ptr<std::vector<Specimen*>> population;
     std::vector<Specimen> bestSpecimens;
     std::vector<Specimen> worstSpecimens;
     std::vector<double> averageScores;

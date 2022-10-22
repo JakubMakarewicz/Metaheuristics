@@ -25,7 +25,7 @@ public:
 
     explicit Selector(RandomGenerators& rand);
 
-    virtual std::vector<Specimen*>* RunSelection(std::vector<Specimen*>& population) = 0;
+    virtual std::unique_ptr<std::vector<Specimen*>> RunSelection(std::vector<Specimen*>& population) = 0;
 
     static Selector* GenerateSelector(std::string selectorName, int tournamentSize, RandomGenerators& rand);
 
@@ -35,7 +35,7 @@ class RouletteSelector: public Selector {
 public:
     explicit RouletteSelector(RandomGenerators &rand);
 
-    std::vector<Specimen*>* RunSelection(std::vector<Specimen*>& population) override;
+    std::unique_ptr<std::vector<Specimen*>> RunSelection(std::vector<Specimen*>& population) override;
 private:
     double NormalizeFitness(std::vector<Specimen*>& population);
 };
@@ -47,7 +47,7 @@ public:
     int tournamentSize;
 
     TournamentSelector(RandomGenerators& rand, int tournamentSize): Selector(rand) { this->tournamentSize = tournamentSize; }
-    std::vector<Specimen*>* RunSelection(std::vector<Specimen*>& population) override;
+    std::unique_ptr<std::vector<Specimen*>> RunSelection(std::vector<Specimen*>& population) override;
 private:
     Specimen* RunSingleTournament(std::vector<Specimen*>& population);
 };
