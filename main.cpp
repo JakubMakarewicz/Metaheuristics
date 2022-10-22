@@ -6,8 +6,8 @@
 
 int main() {//
     DataLoader dataLoader;
-//    dataLoader.loadConfig("C:\\Users\\makaron\\source\\repos\\JakubMakarewicz\\Metaheuristics\\configs\\config1.txt");
-    dataLoader.loadConfig("/home/kuba/Source/Metaheuristics/configs/config1.txt");
+    dataLoader.loadConfig("C:\\Users\\makaron\\CLionProjects\\Metaheuristics2\\configs\\config1.txt");
+//    dataLoader.loadConfig("/home/kuba/Source/Metaheuristics/configs/config1.txt");
     dataLoader.loadData(dataLoader.config.dataFilePath);
     RandomGenerators rand;
     rand.Init(dataLoader.data);

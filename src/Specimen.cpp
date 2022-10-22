@@ -59,3 +59,4 @@ bool Specimen::PickupItem(Item &item, DataStructure& data) {
     }
     return false;
 }
+

@@ -1,3 +1,0 @@
-C:/Users/makaron/CLionProjects/Metaheuristics/cmake-build-debug/CMakeFiles/Metaheuristics.dir
-C:/Users/makaron/CLionProjects/Metaheuristics/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/makaron/CLionProjects/Metaheuristics/cmake-build-debug/CMakeFiles/rebuild_cache.dir

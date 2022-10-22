@@ -27,6 +27,7 @@ public:
     Specimen(int n, int i);
     Specimen(const Specimen& other){
         *this=other;}
+
     Specimen& operator=(const Specimen& rhs);
 
     bool operator<(const Specimen &rhs) const;
@@ -39,6 +40,7 @@ public:
 
     void ClearKnapsack() { this->currentKnapsackWeight = 0; for (int i = 0;i < this->itemGenome.size(); i++)this->itemGenome.at(i) = false; }
     bool PickupItem(Item& item, DataStructure& data);
+
 };
 
 

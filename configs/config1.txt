@@ -10,5 +10,6 @@ selector;TOURNAMENT
 crossoverer;PMX
 mutator;SWAP
 factory;RANDOM
-dataFilePath;/home/kuba/Source/Metaheuristics/data/medium_0.ttp
+dataFilePath;C:\Users\makaron\source\repos\JakubMakarewicz\Metaheuristics\data\hard_0.ttp
 algorithm;GENETIC
+dataFilePath;/home/kuba/Source/Metaheuristics/data/medium_0.ttp
