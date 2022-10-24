@@ -7,6 +7,7 @@
 
 #include "Specimen.h"
 #include "RandomGenerators.h"
+#include "Config.h"
 
 
 class SwapMutator;
@@ -14,25 +15,24 @@ class InverseMutator;
 
 class Mutator {
 public:
-    double nodeMutationProbability;
-    double itemMutationProbability;
-    bool mutateKnapsack;
+    Config* config;
+
     RandomGenerators* rand;
     Mutator() {}
-    Mutator(double nodeMutationProbability, double itemMutationProbability, bool mutateKnapsack, RandomGenerators& rand) : nodeMutationProbability(nodeMutationProbability), itemMutationProbability(itemMutationProbability), mutateKnapsack(mutateKnapsack), rand(&rand) {}
-    virtual void MutateSpecimen(Specimen& specimen) { if (this->mutateKnapsack) this->MutateKnapsack(specimen); }
+    Mutator(Config* config, RandomGenerators& rand) : config(config), rand(&rand) {}
+    virtual void MutateSpecimen(Specimen& specimen) { if (this->config->mutateKnapsack) this->MutateKnapsack(specimen); }
     virtual void MutateKnapsack(Specimen& specimen);
 //
-    static Mutator* GenerateMutator(std::string mutatorName, double nodeMutationProbability, double itemMutationProbability, bool mutateKnapsack, RandomGenerators& rand);
+    static Mutator* GenerateMutator(std::string mutatorName, Config* config, RandomGenerators& rand);
 };
 class SwapMutator : public Mutator{
 public:
-    SwapMutator(double nodeMutationProbability, double itemMutationProbability, bool mutateKnapsack, RandomGenerators& rand) : Mutator(nodeMutationProbability, itemMutationProbability, mutateKnapsack, rand) {}
+    SwapMutator(Config* config, RandomGenerators& rand) : Mutator(config, rand){}
     void MutateSpecimen(Specimen &specimen) override;
 };
 class InverseMutator : public Mutator {
 public:
-    InverseMutator(double nodeMutationProbability, double itemMutationProbability, bool mutateKnapsack, RandomGenerators& rand) : Mutator(nodeMutationProbability, itemMutationProbability, mutateKnapsack, rand) {}
+    InverseMutator(Config* config, RandomGenerators& rand) : Mutator(config, rand){}
     void MutateSpecimen(Specimen& specimen) override;
 };
 

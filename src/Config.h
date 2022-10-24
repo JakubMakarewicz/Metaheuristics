@@ -3,6 +3,7 @@
 class Config {
 public: 
 	double crossoverProbability;
+    double specimenNodeGenomeMutationProbability;
 	double nodeMutationProbability;
 	double itemMutationProbability;
 	bool mutateKnapsack;
@@ -16,5 +17,6 @@ public:
 	std::string factory;
 	std::string dataFilePath;
     std::string algorithm;
+    std::string outputFilePath;
     //TODO: place random engines here
 };

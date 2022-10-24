@@ -30,7 +30,9 @@ void Algorithm::Run(){
 
 void Algorithm::Log(){
 	std::ofstream logFile;
-	logFile.open(".\\example.csv");
+//    logFile.open(".\\example.csv");
+//    logFile.open("/home/kuba/Source/Metaheuristics/example.csv");
+    logFile.open(this->config->outputFilePath);
     for (int i = 0; i < this->currentGeneration; i++) {
         logFile << std::fixed<< this->bestSpecimens.at(i).fitness << ',' << this->worstSpecimens.at(i).fitness << ',' << this->averageScores.at(i);
         logFile << '\n';
@@ -84,7 +86,7 @@ Algorithm::Algorithm(Config& config, DataStructure& data, RandomGenerators& rand
     this->config = &config;
     this->data = &data;
     this->crossoverer = Crossoverer::GenerateCrossoverer(config.crossoverer, config.crossoverProbability, rand);
-    this->mutator = Mutator::GenerateMutator(config.mutator, config.nodeMutationProbability, config.itemMutationProbability, config.mutateKnapsack, rand);
+    this->mutator = Mutator::GenerateMutator(config.mutator, this->config, rand);
     this->selector = Selector::GenerateSelector(config.selector, config.tournamentBatchSize, rand);
     this->specimenFactory = SpecimenFactory::GenerateSpecimenFactory(config.factory, *this->data, rand);
     this->evaluator = new Evaluator(*this->data);

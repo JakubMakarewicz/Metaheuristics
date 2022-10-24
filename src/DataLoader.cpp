@@ -86,6 +86,8 @@ bool DataLoader::loadConfig(const std::string& filePath)
         getline(dataFile, line);
         this->config.crossoverProbability = std::stod(this->splitString(line, ';')[1]);
         getline(dataFile, line);
+        this->config.specimenNodeGenomeMutationProbability = std::stod(this->splitString(line, ';')[1]);
+        getline(dataFile, line);
         this->config.nodeMutationProbability = std::stod(this->splitString(line, ';')[1]);
         getline(dataFile, line);
         this->config.itemMutationProbability = std::stod(this->splitString(line, ';')[1]);
@@ -111,6 +113,8 @@ bool DataLoader::loadConfig(const std::string& filePath)
         this->config.dataFilePath = this->splitString(line, ';')[1];
         getline(dataFile, line);
         this->config.algorithm = this->splitString(line, ';')[1];
+        getline(dataFile, line);
+        this->config.outputFilePath = this->splitString(line, ';')[1];
         dataFile.close();
         return true;
     }

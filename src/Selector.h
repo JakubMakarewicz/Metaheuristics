@@ -11,6 +11,7 @@
 #include "../utils/fenwick_tree.h"
 #include "Evaluator.h"
 #include "RandomGenerators.h"
+#include <memory>
 
 enum SelectorEnum{
     ROULETTE,

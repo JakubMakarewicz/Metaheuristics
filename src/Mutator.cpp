@@ -11,20 +11,20 @@ void Mutator::MutateKnapsack(Specimen& specimen){
 	for (int i = 0; i < specimen.itemGenome.size();i++) {
         if (specimen.itemGenome.at(i)) {
             double chance = (*rand->distChance)(*rand->mt);
-            if (chance < this->itemMutationProbability) {
+            if (chance < this->config->itemMutationProbability) {
 				specimen.itemGenome.at(i).flip();
             }
         }
     }
 }
 
-Mutator* Mutator::GenerateMutator(std::string mutatorName, double nodeMutationProbability, double itemMutationProbability, bool mutateKnapsack, RandomGenerators& rand)
+Mutator* Mutator::GenerateMutator(std::string mutatorName, Config* config, RandomGenerators& rand)
 {
 	if (mutatorName == "SWAP") {
-		return new SwapMutator(nodeMutationProbability, itemMutationProbability, mutateKnapsack, rand);
+		return new SwapMutator(config, rand);
 	}
 	else if (mutatorName == "INVERSE") {
-		return new InverseMutator(nodeMutationProbability, itemMutationProbability, mutateKnapsack,rand);
+		return new InverseMutator(config,rand);
 	}
 }
 
@@ -33,9 +33,12 @@ void SwapMutator::MutateSpecimen(Specimen& specimen){
 	//std::random_device rd;
 	//std::mt19937_64 mt(rd());
 //    if (this->mutateKnapsack) this->MutateKnapsack(specimen);
-	for (int i = 0; i < specimen.nodeGenome.size(); i++) {
-		double chance = (*rand->distChance)(*rand->mt);
-		if (chance < this->nodeMutationProbability) {
+
+    double chance = (*rand->distChance)(*rand->mt);
+    if (chance > this->config->specimenNodeGenomeMutationProbability) return;
+    for (int i = 0; i < specimen.nodeGenome.size(); i++) {
+		chance = (*rand->distChance)(*rand->mt);
+		if (chance < this->config->nodeMutationProbability) {
 			int target = (*rand->distsEndNode.at(0))(*rand->mt);
 			int temp = specimen.nodeGenome.at(i);
 			specimen.nodeGenome.at(i) = specimen.nodeGenome.at(target);
@@ -48,9 +51,10 @@ void InverseMutator::MutateSpecimen(Specimen& specimen)
 {
     //std::random_device rd;
     //std::mt19937_64 mt(rd());
-//    if (this->mutateKnapsack) this->MutateKnapsack(specimen);
 	double chance = (*rand->distChance)(*rand->mt);
-	if (chance < this->nodeMutationProbability) {
+    if (chance > this->config->specimenNodeGenomeMutationProbability) return;
+    chance = (*rand->distChance)(*rand->mt);
+	if (chance < this->config->nodeMutationProbability) {
 		int start = (*rand->distStart)(*rand->mt);
 		int end = (*rand->distsEndNode.at(start+1))(*rand->mt);
 

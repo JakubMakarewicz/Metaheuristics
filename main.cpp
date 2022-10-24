@@ -6,8 +6,8 @@
 
 int main() {//
     DataLoader dataLoader;
-    dataLoader.loadConfig(".\\configs\\config1.txt");
-//    dataLoader.loadConfig("/home/kuba/Source/Metaheuristics/configs/config1.txt");
+//    dataLoader.loadConfig(".\\configs\\config1.txt");
+    dataLoader.loadConfig("/home/kuba/Source/Metaheuristics/configs/config1.txt");
     dataLoader.loadData(dataLoader.config.dataFilePath);
     RandomGenerators rand;
     rand.Init(dataLoader.data);
