@@ -8,9 +8,11 @@ public:
 	double itemMutationProbability;
 	bool mutateKnapsack;
 	bool generateGreedyKnapsackPostCross;
-	int populationSize;//
+	bool mutateOnlyOnce;
+	int populationSize;
 	int generationsCount;
 	int tournamentBatchSize;
+	int tabooSize;
 	std::string selector;
 	std::string crossoverer;
 	std::string mutator;

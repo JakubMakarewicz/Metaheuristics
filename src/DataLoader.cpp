@@ -96,11 +96,15 @@ bool DataLoader::loadConfig(const std::string& filePath)
         getline(dataFile, line);
         this->config.generateGreedyKnapsackPostCross = std::stoi(this->splitString(line, ';')[1]);
         getline(dataFile, line);
+        this->config.mutateOnlyOnce = std::stoi(this->splitString(line, ';')[1]);
+        getline(dataFile, line);
         this->config.populationSize = std::stoi(this->splitString(line, ';')[1]);
         getline(dataFile, line);
         this->config.generationsCount = std::stoi(this->splitString(line, ';')[1]);
         getline(dataFile, line);
         this->config.tournamentBatchSize = std::stoi(this->splitString(line, ';')[1]);
+        getline(dataFile, line);
+        this->config.tabooSize = std::stoi(this->splitString(line, ';')[1]);
         getline(dataFile, line);
         this->config.selector = this->splitString(line, ';')[1];
         getline(dataFile, line);

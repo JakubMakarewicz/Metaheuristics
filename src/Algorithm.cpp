@@ -11,18 +11,6 @@ void Algorithm::Run(){
 		this->RunIteration();
 
         this->SaveGenerationResult();
-        bool foundDupes = false;
-        for (int i = 0; i < this->population->size(); i++) {
-            std::vector<int> s;
-            for (int j = 0; j < this->population->at(i)->nodeGenome.size(); j++) {
-                if (std::find(s.begin(), s.end(), this->population->at(i)->nodeGenome.at(j)) != s.end()){
-                    bool foundDupes = true;
-                }
-                if (foundDupes)
-                    std::cout << "fuck yall";
-                s.push_back(this->population->at(i)->nodeGenome.at(j));
-            }
-        }
         std::cout << this->currentGeneration << '\n';
 	}
 	this->Log();
@@ -34,7 +22,7 @@ void Algorithm::Log(){
 //    logFile.open("/home/kuba/Source/Metaheuristics/example.csv");
     logFile.open(this->config->outputFilePath);
     for (int i = 0; i < this->currentGeneration; i++) {
-        logFile << std::fixed<< this->bestSpecimens.at(i).fitness << ',' << this->worstSpecimens.at(i).fitness << ',' << this->averageScores.at(i);
+        logFile << std::fixed<< this->goats.at(i).fitness << ',' << this->bestSpecimens.at(i).fitness << ',' << this->worstSpecimens.at(i).fitness << ',' << this->averageScores.at(i)<< ','<<i;
         logFile << '\n';
     }
 	logFile.close();
@@ -55,10 +43,11 @@ void Algorithm::Initialize()
 
 bool Algorithm::CanRun(){
     return this->currentGeneration < this->config->generationsCount;
-    //return true;
 }
 
 void Algorithm::SaveGenerationResult() {
+    if (this->population->size() == 0)
+        return;
     double worstScore = std::numeric_limits<double>::infinity();
     int worstIndex=0;
     double bestScore = INT_MIN;
@@ -76,6 +65,11 @@ void Algorithm::SaveGenerationResult() {
             worstIndex = i;
         }
     }
+    if (this->goats.size() == 0)
+        this->goats.push_back(*this->population->at(bestIndex));
+    else if (this->population->at(bestIndex)->fitness > this->goats.back().fitness)
+        this->goats.push_back(*this->population->at(bestIndex));
+    else this->goats.push_back(this->goats.back());
     this->bestSpecimens.push_back(*this->population->at(bestIndex));
     this->worstSpecimens.push_back(*this->population->at(worstIndex));
     this->averageScores.push_back(sum/this->config->populationSize);
@@ -100,6 +94,10 @@ Algorithm* Algorithm::GenerateAlgorithm(Config& config, DataStructure& data, Ran
     }
     else if (config.algorithm == "GENETIC") {
         GeneticAlgorithm* algorithm = new GeneticAlgorithm{ config, data,rand};
+        return algorithm;
+    }
+    else if (config.algorithm == "TABOO") {
+        TabooSearch* algorithm = new TabooSearch{ config, data,rand };
         return algorithm;
     }
 }
@@ -127,4 +125,54 @@ void GeneticAlgorithm::RunIteration() {
     }
 
 //    }
+}
+
+
+void TabooSearch::FindNeighbourhood()
+{
+    for (int i = 0; i < this->config->populationSize; i++) {
+        Specimen* spec = new Specimen(*this->currentSpecimen);
+        this->mutator->MutateSpecimen(*spec);
+        bool inTaboo=false;
+        for (auto const& i: this->taboo) {
+            if (*spec == i) {
+                inTaboo = true;
+                break;
+            }
+        }
+        if (inTaboo) {
+            delete spec;
+            continue;
+        }
+        if (this->config->generateGreedyKnapsackPostCross)
+            this->specimenFactory->GenerateGreedyItems(*spec);
+        this->population->push_back(spec);
+    }
+}
+
+void TabooSearch::Initialize() {
+    this->currentSpecimen = new Specimen();
+    this->specimenFactory->InitializeSpecimen(*this->currentSpecimen);
+    this->currentGeneration = 0;
+    this->population = std::make_unique<std::vector<Specimen*>>();
+}
+void TabooSearch::RunIteration() {
+    for (int i = 0; i < this->population->size(); i++)
+        delete this->population->at(i);
+    this->population->clear();
+    this->FindNeighbourhood();
+    double maxScore = INT_MIN;
+    int bestIndex = 0;
+    for (int i = 0; i < this->population->size();i++) {
+        this->evaluator->EvaluateSpecimen(*this->population->at(i));
+        if (this->population->at(i)->fitness > maxScore) {
+            maxScore = this->population->at(i)->fitness;
+            bestIndex = i;
+        }
+    }
+    delete this->currentSpecimen;
+    this->currentSpecimen = new Specimen(*this->population->at(bestIndex));
+    this->taboo.push_back(*this->population->at(bestIndex));
+    if (this->taboo.size() > this->config->tabooSize)
+        this->taboo.pop_front();
 }

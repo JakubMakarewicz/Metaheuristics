@@ -1,6 +1,11 @@
 #pragma once
-#include <random>
 #include "DataStructure.h"
+
+//#if !(defined(WIN32) || defined(_WIN32) || defined(__WIN32) && !defined(__CYGWIN__))
+#include <random>
+//#endif
+
+
 
 class RandomGenerators {
 public://

@@ -21,6 +21,7 @@ public:
     Evaluator* evaluator;
 
 	std::unique_ptr<std::vector<Specimen*>> population;
+	std::vector<Specimen> goats;
     std::vector<Specimen> bestSpecimens;
     std::vector<Specimen> worstSpecimens;
     std::vector<double> averageScores;
@@ -51,5 +52,16 @@ class GeneticAlgorithm : public Algorithm {
 public:
 	GeneticAlgorithm(Config& config, DataStructure& data, RandomGenerators& rand) : Algorithm(config, data,rand) {}
 protected:
+	void RunIteration() override;
+};
+
+class TabooSearch : public Algorithm {
+public:
+	Specimen* currentSpecimen;
+	std::list<Specimen> taboo;
+	TabooSearch(Config& config, DataStructure& data, RandomGenerators& rand) : Algorithm(config, data,rand) {}
+protected:
+	void FindNeighbourhood();
+	void Initialize() override;
 	void RunIteration() override;
 };

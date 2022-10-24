@@ -48,6 +48,19 @@ bool Specimen::operator>=(const Specimen &rhs) const {
     return !(*this < rhs);
 }
 
+bool Specimen::operator==(const Specimen& rhs) const
+{
+    if (this->nodeGenome.size() != rhs.nodeGenome.size() || this->itemGenome.size() != rhs.itemGenome.size())
+        return false;
+    for (int i = 0; i < this->nodeGenome.size(); i++)
+        if (this->nodeGenome.at(i) != rhs.nodeGenome.at(i))
+            return false;
+    for (int i = 0; i < this->itemGenome.size(); i++)
+        if (this->itemGenome.at(i) != rhs.itemGenome.at(i))
+            return false;
+    return true;
+}
+
 bool Specimen::PickupItem(Item &item, DataStructure& data) {
     if (this->itemGenome.size() == 0)
         for (int i = 0; i < data.items.size();i++)
