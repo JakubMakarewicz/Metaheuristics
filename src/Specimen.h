@@ -29,7 +29,7 @@ public:
         *this=other;}
 
     Specimen& operator=(const Specimen& rhs);
-
+    bool IsNodeGenomeSame(const Specimen& rhs);
     bool operator<(const Specimen &rhs) const;
 
     bool operator>(const Specimen &rhs) const;
@@ -40,7 +40,7 @@ public:
     bool operator==(const Specimen &rhs) const;
     void ClearKnapsack() { this->currentKnapsackWeight = 0; for (int i = 0;i < this->itemGenome.size(); i++)this->itemGenome.at(i) = false; }
     bool PickupItem(Item& item, DataStructure& data);
-
+    void CopyNodeGenome(const Specimen& rhs);
 };
 
 

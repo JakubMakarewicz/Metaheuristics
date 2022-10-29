@@ -73,3 +73,18 @@ bool Specimen::PickupItem(Item &item, DataStructure& data) {
     return false;
 }
 
+bool Specimen::IsNodeGenomeSame(const Specimen &rhs) {
+    if (this->nodeGenome.size() != rhs.nodeGenome.size() || this->itemGenome.size() != rhs.itemGenome.size())
+        return false;
+    for (int i = 0; i < this->nodeGenome.size(); i++)
+        if (this->nodeGenome.at(i) != rhs.nodeGenome.at(i))
+            return false;
+    return true;
+}
+
+void Specimen::CopyNodeGenome(const Specimen &rhs){
+    this->nodeGenome.clear();
+    for (int i=0;i<rhs.nodeGenome.size();i++)
+        this->nodeGenome.push_back(rhs.nodeGenome.at(i));
+}
+

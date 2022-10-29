@@ -131,11 +131,13 @@ void GeneticAlgorithm::RunIteration() {
 void TabooSearch::FindNeighbourhood()
 {
     for (int i = 0; i < this->config->populationSize; i++) {
-        Specimen* spec = new Specimen(*this->currentSpecimen);
+        Specimen* spec = new Specimen();
+        spec->CopyNodeGenome(*this->currentSpecimen);
+//        Specimen* spec = new Specimen(*this->currentSpecimen);
         this->mutator->MutateSpecimen(*spec);
         bool inTaboo=false;
         for (auto const& i: this->taboo) {
-            if (*spec == i) {
+            if (spec->IsNodeGenomeSame(*i)) {
                 inTaboo = true;
                 break;
             }
@@ -172,7 +174,9 @@ void TabooSearch::RunIteration() {
     }
     delete this->currentSpecimen;
     this->currentSpecimen = new Specimen(*this->population->at(bestIndex));
-    this->taboo.push_back(*this->population->at(bestIndex));
-    if (this->taboo.size() > this->config->tabooSize)
+    this->taboo.push_back(new Specimen(*this->population->at(bestIndex)));
+    if (this->taboo.size() > this->config->tabooSize){
+        delete this->taboo.front();
         this->taboo.pop_front();
+    }
 }

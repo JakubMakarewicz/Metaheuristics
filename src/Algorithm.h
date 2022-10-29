@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <list>
 #include <fstream>
 #include <vector>
 #include "SpecimenFactory.h"
@@ -58,10 +59,20 @@ protected:
 class TabooSearch : public Algorithm {
 public:
 	Specimen* currentSpecimen;
-	std::list<Specimen> taboo;
+	std::list<Specimen*> taboo;
 	TabooSearch(Config& config, DataStructure& data, RandomGenerators& rand) : Algorithm(config, data,rand) {}
 protected:
 	void FindNeighbourhood();
 	void Initialize() override;
 	void RunIteration() override;
+};
+
+class SimulatedAnnealing: public Algorithm {
+public:
+    Specimen* currentSpecimen;
+    SimulatedAnnealing(Config& config, DataStructure& data, RandomGenerators& rand) : Algorithm(config, data,rand) {}
+protected:
+    void FindNeighbourhood();
+    void Initialize() override;
+    void RunIteration() override;
 };
