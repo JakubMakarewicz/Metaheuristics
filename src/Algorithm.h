@@ -20,11 +20,12 @@ public:
 	DataStructure* data;
 	Config* config;
     Evaluator* evaluator;
+	RandomGenerators* rand;
 
 	std::unique_ptr<std::vector<Specimen*>> population;
-	std::vector<Specimen> goats;
-    std::vector<Specimen> bestSpecimens;
-    std::vector<Specimen> worstSpecimens;
+	std::vector<double> goats;
+    std::vector<double> bestSpecimens;
+    std::vector<double> worstSpecimens;
     std::vector<double> averageScores;
 
     int currentGeneration;
@@ -70,9 +71,12 @@ protected:
 class SimulatedAnnealing: public Algorithm {
 public:
     Specimen* currentSpecimen;
-    SimulatedAnnealing(Config& config, DataStructure& data, RandomGenerators& rand) : Algorithm(config, data,rand) {}
+	double temperature = 0;
+	SimulatedAnnealing(Config& config, DataStructure& data, RandomGenerators& rand) : Algorithm(config, data, rand) { this->temperature = config.startingTemperature; }
 protected:
+	bool CanRun();
     void FindNeighbourhood();
     void Initialize() override;
     void RunIteration() override;
+	void SaveGenerationResult() override;
 };

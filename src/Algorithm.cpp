@@ -18,11 +18,9 @@ void Algorithm::Run(){
 
 void Algorithm::Log(){
 	std::ofstream logFile;
-//    logFile.open(".\\example.csv");
-//    logFile.open("/home/kuba/Source/Metaheuristics/example.csv");
     logFile.open(this->config->outputFilePath);
     for (int i = 0; i < this->currentGeneration; i++) {
-        logFile << std::fixed<< this->goats.at(i).fitness << ',' << this->bestSpecimens.at(i).fitness << ',' << this->worstSpecimens.at(i).fitness << ',' << this->averageScores.at(i)<< ','<<i;
+        logFile << std::fixed<< this->goats.at(i) << ',' << this->bestSpecimens.at(i) << ',' << this->worstSpecimens.at(i) << ',' << this->averageScores.at(i)<< ','<<i;
         logFile << '\n';
     }
 	logFile.close();
@@ -66,12 +64,12 @@ void Algorithm::SaveGenerationResult() {
         }
     }
     if (this->goats.size() == 0)
-        this->goats.push_back(*this->population->at(bestIndex));
-    else if (this->population->at(bestIndex)->fitness > this->goats.back().fitness)
-        this->goats.push_back(*this->population->at(bestIndex));
+        this->goats.push_back(this->population->at(bestIndex)->fitness);
+    else if (this->population->at(bestIndex)->fitness > this->goats.back())
+        this->goats.push_back(this->population->at(bestIndex)->fitness);
     else this->goats.push_back(this->goats.back());
-    this->bestSpecimens.push_back(*this->population->at(bestIndex));
-    this->worstSpecimens.push_back(*this->population->at(worstIndex));
+    this->bestSpecimens.push_back(this->population->at(bestIndex)->fitness);
+    this->worstSpecimens.push_back(this->population->at(worstIndex)->fitness);
     this->averageScores.push_back(sum/this->config->populationSize);
 }
 
@@ -79,6 +77,7 @@ Algorithm::Algorithm(Config& config, DataStructure& data, RandomGenerators& rand
 {
     this->config = &config;
     this->data = &data;
+    this->rand = &rand;
     this->crossoverer = Crossoverer::GenerateCrossoverer(config.crossoverer, config.crossoverProbability, rand);
     this->mutator = Mutator::GenerateMutator(config.mutator, this->config, rand);
     this->selector = Selector::GenerateSelector(config.selector, config.tournamentBatchSize, rand);
@@ -98,6 +97,10 @@ Algorithm* Algorithm::GenerateAlgorithm(Config& config, DataStructure& data, Ran
     }
     else if (config.algorithm == "TABOO") {
         TabooSearch* algorithm = new TabooSearch{ config, data,rand };
+        return algorithm;
+    }
+    else if (config.algorithm == "SA") {
+        SimulatedAnnealing* algorithm = new SimulatedAnnealing{ config, data,rand };
         return algorithm;
     }
 }
@@ -157,6 +160,8 @@ void TabooSearch::Initialize() {
     this->specimenFactory->InitializeSpecimen(*this->currentSpecimen);
     this->currentGeneration = 0;
     this->population = std::make_unique<std::vector<Specimen*>>();
+    this->evaluator->EvaluateSpecimen(*this->currentSpecimen);
+
 }
 void TabooSearch::RunIteration() {
     for (int i = 0; i < this->population->size(); i++)
@@ -179,4 +184,66 @@ void TabooSearch::RunIteration() {
         delete this->taboo.front();
         this->taboo.pop_front();
     }
+}
+
+void SimulatedAnnealing::FindNeighbourhood()
+{
+    for (int i = 0; i < this->config->populationSize; i++) {
+        Specimen* spec = new Specimen();
+        spec->CopyNodeGenome(*this->currentSpecimen);
+        this->mutator->MutateSpecimen(*spec);
+        if (this->config->generateGreedyKnapsackPostCross)
+            this->specimenFactory->GenerateGreedyItems(*spec);
+        this->population->push_back(spec);
+    }
+}
+
+void SimulatedAnnealing::Initialize() {
+    this->currentSpecimen = new Specimen();
+    this->specimenFactory->InitializeSpecimen(*this->currentSpecimen);
+    this->evaluator->EvaluateSpecimen(*this->currentSpecimen);
+    this->currentGeneration = 0;
+    this->population = std::make_unique<std::vector<Specimen*>>();
+}
+void SimulatedAnnealing::RunIteration() {
+    for (int i = 0; i < this->population->size(); i++)
+        delete this->population->at(i);
+    this->population->clear();
+    this->FindNeighbourhood();
+    double maxScore = INT_MIN;
+    int bestIndex = 0;
+    for (int i = 0; i < this->population->size();i++) {
+        this->evaluator->EvaluateSpecimen(*this->population->at(i));
+        if (this->population->at(i)->fitness > maxScore) {
+            maxScore = this->population->at(i)->fitness;
+            bestIndex = i;
+        }
+    }
+    if (maxScore > this->currentSpecimen->fitness) {
+        delete this->currentSpecimen;
+        this->currentSpecimen = new Specimen(*this->population->at(bestIndex));
+    }
+    else if (((*rand->distChance)(*rand->mt)) < std::exp((maxScore - this->currentSpecimen->fitness) / temperature)) {
+        delete this->currentSpecimen;
+        this->currentSpecimen = new Specimen(*this->population->at(bestIndex));
+    }
+    this->temperature = this->temperature * this->config->annealingRatio;
+}
+
+void SimulatedAnnealing::SaveGenerationResult()
+{
+    if (this->goats.size() == 0)
+        this->goats.push_back(this->currentSpecimen->fitness);
+    else if (this->currentSpecimen->fitness > this->goats.back())
+        this->goats.push_back(this->currentSpecimen->fitness);
+    else this->goats.push_back(this->goats.back());
+    this->bestSpecimens.push_back(this->currentSpecimen->fitness);
+    this->worstSpecimens.push_back(this->currentSpecimen->fitness);
+    this->averageScores.push_back(this->currentSpecimen->fitness);
+}
+
+
+bool SimulatedAnnealing::CanRun() {
+    bool test =  Algorithm::CanRun() && this->temperature > this->config->targetTemperature;
+    return test;
 }

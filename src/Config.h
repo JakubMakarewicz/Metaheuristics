@@ -6,6 +6,9 @@ public:
     double specimenNodeGenomeMutationProbability;
 	double nodeMutationProbability;
 	double itemMutationProbability;
+	double annealingRatio;
+	double startingTemperature;
+	double targetTemperature;
 	bool mutateKnapsack;
 	bool generateGreedyKnapsackPostCross;
 	bool mutateOnlyOnce;

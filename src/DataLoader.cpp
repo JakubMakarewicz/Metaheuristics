@@ -92,6 +92,12 @@ bool DataLoader::loadConfig(const std::string& filePath)
         getline(dataFile, line);
         this->config.itemMutationProbability = std::stod(this->splitString(line, ';')[1]);
         getline(dataFile, line);
+        this->config.annealingRatio = std::stod(this->splitString(line, ';')[1]);
+        getline(dataFile, line);
+        this->config.startingTemperature = std::stod(this->splitString(line, ';')[1]);
+        getline(dataFile, line);
+        this->config.targetTemperature = std::stod(this->splitString(line, ';')[1]);
+        getline(dataFile, line);
         this->config.mutateKnapsack = std::stoi(this->splitString(line, ';')[1]);
         getline(dataFile, line);
         this->config.generateGreedyKnapsackPostCross = std::stoi(this->splitString(line, ';')[1]);
