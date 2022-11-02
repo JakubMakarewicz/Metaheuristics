@@ -22,6 +22,8 @@ public:
 	std::string factory;
 	std::string dataFilePath;
     std::string algorithm;
-    std::string outputFilePath;
+	std::string outputFilePath;
+	std::string outputFilePath2;
+	int tries;
     //TODO: place random engines here
 };

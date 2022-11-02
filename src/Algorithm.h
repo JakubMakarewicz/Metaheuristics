@@ -31,7 +31,12 @@ public:
     int currentGeneration;
 
 	Algorithm(Config& config, DataStructure& data, RandomGenerators& rand);
-
+	~Algorithm() {
+		goats.clear();
+		bestSpecimens.clear();
+		worstSpecimens.clear();
+		averageScores.clear();
+	}
     static Algorithm* GenerateAlgorithm(Config& config, DataStructure& data, RandomGenerators& rand);
 
     void Run();

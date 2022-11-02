@@ -10,11 +10,28 @@ int main() {//
     //dataLoader.loadConfig("/home/kuba/Source/Metaheuristics/configs/config1.txt");
     dataLoader.loadData(dataLoader.config.dataFilePath);
     RandomGenerators rand;
-    rand.Init(dataLoader.data);
-    //NonGeneticAlgorithm* algorithm = new NonGeneticAlgorithm(dataLoader.config, dataLoader.data);
-    Algorithm* algorithm = Algorithm::GenerateAlgorithm(dataLoader.config, dataLoader.data, rand);
-    algorithm->Run();
-    int i =0;
+    std::vector<double> bests;
+    std::vector<double> worsts;
+    std::vector<double> avgs;
+    
+    for (int i = 0; i < dataLoader.config.tries; i++) {
+        rand.Init(dataLoader.data);
+        //NonGeneticAlgorithm* algorithm = new NonGeneticAlgorithm(dataLoader.config, dataLoader.data);
+        Algorithm* algorithm = Algorithm::GenerateAlgorithm(dataLoader.config, dataLoader.data, rand);
+        algorithm->Run();
+        bests.push_back(algorithm->goats.back());
+        worsts.push_back(algorithm->worstSpecimens.back());
+        avgs.push_back(algorithm->averageScores.back());
+        delete algorithm;
+    }
+    std::ofstream logFile;
+    logFile.open(dataLoader.config.outputFilePath2);
+    for (int i = 0; i < dataLoader.config.tries; i++) {
+        logFile << std::fixed << bests.at(i) << ',' << worsts.at(i) << ',' << avgs.at(i) << ',' << i;
+        logFile << '\n';
+    }
+    logFile.close();
+    //int i =0;
 
     //dataLoader.loadData("/home/kuba/Source/Metaheuristics/data/trivial_1.ttp"); // linux
 //    dataLoader.loadData("C:\\Users\\makaron\\CLionProjects\\Metaheuristics\\data\\trivial_1.ttp"); // windows

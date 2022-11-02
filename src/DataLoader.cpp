@@ -124,7 +124,11 @@ bool DataLoader::loadConfig(const std::string& filePath)
         getline(dataFile, line);
         this->config.algorithm = this->splitString(line, ';')[1];
         getline(dataFile, line);
+        this->config.tries = std::stoi(this->splitString(line, ';')[1]);
+        getline(dataFile, line);
         this->config.outputFilePath = this->splitString(line, ';')[1];
+        getline(dataFile, line);
+        this->config.outputFilePath2 = this->splitString(line, ';')[1];
         dataFile.close();
         return true;
     }

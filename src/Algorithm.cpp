@@ -223,11 +223,12 @@ void SimulatedAnnealing::RunIteration() {
         delete this->currentSpecimen;
         this->currentSpecimen = new Specimen(*this->population->at(bestIndex));
     }
-    else if (((*rand->distChance)(*rand->mt)) < std::exp((maxScore - this->currentSpecimen->fitness) / temperature)) {
+    else if (((*rand->distChance)(*rand->mt)) < std::exp(-(this->currentSpecimen->fitness - maxScore) / temperature)) {
         delete this->currentSpecimen;
         this->currentSpecimen = new Specimen(*this->population->at(bestIndex));
     }
     this->temperature = this->temperature * this->config->annealingRatio;
+    std::cout << "Temp:" << this->temperature << '\n';
 }
 
 void SimulatedAnnealing::SaveGenerationResult()
