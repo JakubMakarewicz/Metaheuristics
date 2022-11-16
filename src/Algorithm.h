@@ -29,7 +29,7 @@ public:
     std::vector<double> averageScores;
 
     int currentGeneration;
-
+	int id;
 	Algorithm(Config& config, DataStructure& data, RandomGenerators& rand);
 	~Algorithm() {
 		goats.clear();

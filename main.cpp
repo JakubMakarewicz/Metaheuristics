@@ -3,7 +3,10 @@
 #include "Specimen.h"
 #include "Algorithm.h"
 #include "RandomGenerators.h"
-
+#include <direct.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <filesystem>
 int main() {//
     DataLoader dataLoader;
     dataLoader.loadConfig(".\\configs\\config1.txt");
@@ -13,11 +16,13 @@ int main() {//
     std::vector<double> bests;
     std::vector<double> worsts;
     std::vector<double> avgs;
-    
+    std::filesystem::remove_all(dataLoader.config.outputFolderPath.c_str());
+    std::filesystem::create_directories(dataLoader.config.outputFolderPath);
     for (int i = 0; i < dataLoader.config.tries; i++) {
         rand.Init(dataLoader.data);
         //NonGeneticAlgorithm* algorithm = new NonGeneticAlgorithm(dataLoader.config, dataLoader.data);
         Algorithm* algorithm = Algorithm::GenerateAlgorithm(dataLoader.config, dataLoader.data, rand);
+        algorithm->id = i;
         algorithm->Run();
         bests.push_back(algorithm->goats.back());
         worsts.push_back(algorithm->worstSpecimens.back());
@@ -25,7 +30,8 @@ int main() {//
         delete algorithm;
     }
     std::ofstream logFile;
-    logFile.open(dataLoader.config.outputFilePath2);
+    logFile.open(dataLoader.config.outputFolderPath + "/results.csv");
+    // get best, first,
     for (int i = 0; i < dataLoader.config.tries; i++) {
         logFile << std::fixed << bests.at(i) << ',' << worsts.at(i) << ',' << avgs.at(i) << ',' << i;
         logFile << '\n';

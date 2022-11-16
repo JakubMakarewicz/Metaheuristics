@@ -11,14 +11,14 @@ void Algorithm::Run(){
 		this->RunIteration();
 
         this->SaveGenerationResult();
-        std::cout << this->currentGeneration << '\n';
+        std::cout << this->id << "|" << this->currentGeneration << '\n';
 	}
 	this->Log();
 }
 
 void Algorithm::Log(){
 	std::ofstream logFile;
-    logFile.open(this->config->outputFilePath);
+    logFile.open(this->config->outputFolderPath + "/" + std::to_string(this->id) + ".csv");
     for (int i = 0; i < this->currentGeneration; i++) {
         logFile << std::fixed<< this->goats.at(i) << ',' << this->bestSpecimens.at(i) << ',' << this->worstSpecimens.at(i) << ',' << this->averageScores.at(i)<< ','<<i;
         logFile << '\n';

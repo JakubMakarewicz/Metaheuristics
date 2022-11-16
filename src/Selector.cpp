@@ -79,7 +79,7 @@ std::unique_ptr<std::vector<Specimen*>> TournamentSelector::RunSelection(std::ve
 }
 
 Specimen* TournamentSelector::RunSingleTournament(std::vector<Specimen*>& population){
-    double bestScore = std::numeric_limits<double>::min();
+    double bestScore = INT_MIN;
     int bestIndex = 0;
     for (int i = 0;i < population.size(); i++) {
         if (population.at(i)->fitness > bestScore) {
