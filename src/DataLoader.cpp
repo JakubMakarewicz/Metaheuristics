@@ -127,6 +127,14 @@ bool DataLoader::loadConfig(const std::string& filePath)
         this->config.tries = std::stoi(this->splitString(line, ';')[1]);
         getline(dataFile, line);
         this->config.outputFolderPath = this->splitString(line, ';')[1];
+        getline(dataFile, line);
+        this->config.EALLocalSearchInterval = std::stoi(this->splitString(line, ';')[1]);
+        getline(dataFile, line);
+        this->config.EALLocalSearchSpecimens = std::stoi(this->splitString(line, ';')[1]);
+        getline(dataFile, line);
+        this->config.runsOf2Opt = std::stoi(this->splitString(line, ';')[1]);
+        getline(dataFile, line);
+        this->config.EALSetGenome = std::stoi(this->splitString(line, ';')[1]);
         dataFile.close();
         return true;
     }

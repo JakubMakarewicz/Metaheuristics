@@ -55,11 +55,20 @@ protected:
 	void RunIteration() override;
 };
 
-class GeneticAlgorithm : public Algorithm {
+class EABase : public Algorithm {
 public:
-	GeneticAlgorithm(Config& config, DataStructure& data, RandomGenerators& rand) : Algorithm(config, data,rand) {}
+	EABase(Config& config, DataStructure& data, RandomGenerators& rand) : Algorithm(config, data, rand) {}
+protected:
+	virtual void RunIteration()=0;
+	virtual void EndOfGenerationAction()=0;
+};
+
+class GeneticAlgorithm : public EABase {
+public:
+	GeneticAlgorithm(Config& config, DataStructure& data, RandomGenerators& rand) : EABase(config, data,rand) {}
 protected:
 	void RunIteration() override;
+	void EndOfGenerationAction() override {}
 };
 
 class TabooSearch : public Algorithm {
@@ -84,4 +93,27 @@ protected:
     void Initialize() override;
     void RunIteration() override;
 	void SaveGenerationResult() override;
+};
+
+class GenderedEA : public Algorithm {
+public:
+	std::array < std::vector<double>, 2> bestSpecimens;
+	std::array < std::vector<double>, 2> worstSpecimens;
+	std::array < std::vector<double>, 2> averageScores;
+	std::array<std::unique_ptr<std::vector<Specimen*>>, 2> population;
+	GenderedEA(Config& config, DataStructure& data, RandomGenerators& rand) : Algorithm(config, data, rand) {  }
+protected:
+	void Log();
+	void RunIteration();
+	void Initialize();
+	void SaveGenerationResult();
+};
+
+class EAL : public GeneticAlgorithm {
+public:
+	int generationsUntilLocalSearch = 0;
+	EAL(Config& config, DataStructure& data, RandomGenerators& rand) : GeneticAlgorithm(config, data, rand) { generationsUntilLocalSearch = config.EALLocalSearchInterval; }
+protected:
+	void EndOfGenerationAction() override;
+	void Run2OptLocalSearch(Specimen& specimen);
 };

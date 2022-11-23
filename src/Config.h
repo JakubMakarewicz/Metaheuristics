@@ -12,10 +12,14 @@ public:
 	bool mutateKnapsack;
 	bool generateGreedyKnapsackPostCross;
 	bool mutateOnlyOnce;
+	bool EALSetGenome;
 	int populationSize;
 	int generationsCount;
 	int tournamentBatchSize;
 	int tabooSize;
+	int EALLocalSearchInterval;
+	int EALLocalSearchSpecimens;
+	int runsOf2Opt;
 	std::string selector;
 	std::string crossoverer;
 	std::string mutator;

@@ -7,11 +7,11 @@
 #include <iostream>
 #include "RandomGenerators.h"
 
-void PMXCrossoverer::Cross(Specimen& lhs, Specimen& rhs) {
+bool PMXCrossoverer::Cross(Specimen& lhs, Specimen& rhs) {
     //std::random_device rd;
     //std::mt19937_64 mt(rd());
     if ((*rand->distChance)(*rand->mt) > this->crossoverProbability) {
-        return; 
+        return false; 
     }
     // select start, end
     int start = (*rand->distStart)(*rand->mt);
@@ -98,6 +98,7 @@ void PMXCrossoverer::Cross(Specimen& lhs, Specimen& rhs) {
     // swap
     // lr {3:2} -> {5:2}
     // rl
+    return true;
 }
 
 Crossoverer* Crossoverer::GenerateCrossoverer(std::string crossovererName, double crossoverProbability, RandomGenerators& rand)
@@ -106,5 +107,3 @@ Crossoverer* Crossoverer::GenerateCrossoverer(std::string crossovererName, doubl
         return new PMXCrossoverer(crossoverProbability, rand);
     }
 }
-
-

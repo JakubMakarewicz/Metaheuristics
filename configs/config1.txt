@@ -7,20 +7,30 @@ startingTemp;1000000
 targetTemp;0
 mutateKnapsack;0
 generateGreedyKnapsackPostCross;1
-mutateOnlyOnce;1
-populationSize;10
-generationsCount;50000
-tournamentBatchSize;5
+mutateOnlyOnce;0
+populationSize;100
+generationsCount;2
+tournamentBatchSize;10
 tabooSize;5
 selector;TOURNAMENT
 crossoverer;PMX
 mutator;INVERSE
 factory;RANDOM
 dataFilePath;.\data\hard_0.ttp
-algorithm;TABOO
-tries;10
-folderPath;.\Results\taboo_5pop10gen100000inv_hard0
+algorithm;EAL
+tries;5
+folderPath;.\Results\eal_pmx08inv07it0p100g2t10_interval1specimens10runs20000_lamark_hard0
+EALLocalSearchInterval; 1
+EALLocalSearchSpecimens; 10
+runsOf2Opt; 20000
+EALSetNodeGenome; 1
+
+
+
 
 # folder name templates
 sa_arXXstXXttXXpopXXgenXX[swap/inv]_[datafilename]
 taboo_XXpopXXgenXX[swap/inv]_[datafilename]
+ea_pmxXX[swap/inv]XXitXXpXXgXXtXX_[datafilename]
+gea_pmxXX[swap/inv]XXitXXpXXgXXtXX_[datafilename]
+eal_pmx08inv07it0p100g15000t10_interval50specimens10runs-1_hard0

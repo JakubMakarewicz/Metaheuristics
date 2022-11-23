@@ -7,7 +7,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <filesystem>
-int main() {//
+
+
+
+
+int main() {
     DataLoader dataLoader;
     dataLoader.loadConfig(".\\configs\\config1.txt");
     //dataLoader.loadConfig("/home/kuba/Source/Metaheuristics/configs/config1.txt");
@@ -25,15 +29,13 @@ int main() {//
         algorithm->id = i;
         algorithm->Run();
         bests.push_back(algorithm->goats.back());
-        worsts.push_back(algorithm->worstSpecimens.back());
-        avgs.push_back(algorithm->averageScores.back());
         delete algorithm;
     }
     std::ofstream logFile;
     logFile.open(dataLoader.config.outputFolderPath + "/results.csv");
     // get best, first,
     for (int i = 0; i < dataLoader.config.tries; i++) {
-        logFile << std::fixed << bests.at(i) << ',' << worsts.at(i) << ',' << avgs.at(i) << ',' << i;
+        logFile << std::fixed << bests.at(i) << ',' << i;
         logFile << '\n';
     }
     logFile.close();

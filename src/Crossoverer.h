@@ -22,14 +22,14 @@ public:
     double crossoverProbability;
     RandomGenerators* rand;
 
-    virtual void Cross(Specimen& lhs, Specimen& rhs) {}
+    virtual bool Cross(Specimen& lhs, Specimen& rhs) { return false; }
     Crossoverer(double crossoverProbability, RandomGenerators& rand) : crossoverProbability(crossoverProbability), rand(&rand) {}
     static Crossoverer* GenerateCrossoverer(std::string crossovererName, double crossoverProbability, RandomGenerators& rand);//
 };
 class PMXCrossoverer: public Crossoverer {
 public:
     PMXCrossoverer(double crossoverProbability, RandomGenerators& rand) : Crossoverer(crossoverProbability,rand) {}
-    void Cross(Specimen& lhs, Specimen& rhs) override;
+    bool Cross(Specimen& lhs, Specimen& rhs) override;
 private:
     std::unordered_map<int, int> mappingLhsRhs;
     std::unordered_map<int, int> mappingRhsLhs;
